@@ -4,16 +4,16 @@
 
 |   Info      |        Description     |
 | ----------- | ---------------------- |
-| TeamID      |        Team-000        |
-| TeamName    |         sample         |
-| Captain     |       Abdu Alawini     |
-| Captain     |  alawini@illinois.edu  |
-| Member1     |        Kevin Pei       |
-| Member1     |   kevin2@illinois.edu  |
-| Member2     |                        |
-| Member2     |                        |
-| Member3     |                        |
-| Member3     |                        |
+| TeamID      |        Team-047        |
+| TeamName    |         Pepsi          |
+| Captain     |        Yilun Fu        |
+| Captain     |  yilunf2@illinois.edu  |
+| Member1     |        Henry Wang      |
+| Member1     |   henryw6@illinois.edu |
+| Member2     |     Chengyan Ji        |
+| Member2     |  cji10@illinois.edu    |
+| Member3     |        weikun wu       |
+| Member3     |  weikunw2@illinois.edu |
 
 ## Project Information
 
