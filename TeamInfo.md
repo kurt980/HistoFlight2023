@@ -19,10 +19,13 @@
 
 |   Info      |        Description     |
 | ----------- | ---------------------- |
-|  Title      |       ProjectTitle     |
+|  Title      |       HistoFlight      |
 | System URL  |      link_to_system    |
 | Video Link  |      link_to_video     |
 
 ## Project Summary
 
-This is a summary of the project!
+Our project takes data of current and historical flight price data for users so that they can check for historical trends and compare across different airlines. We also 
+provide analysis and visualizations based on historical data and help users select their best flight, airline and best time to book a trip. Users can also interact with 
+the website by updating comments on flights.
+
