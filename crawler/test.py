@@ -5,7 +5,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 url = 'https://www.google.com/travel/flights?q=Flights%20to%20ORD%20from%20LAX%20on%202022-10-13%20one%20way%20nonstop'
-driver = webdriver.Chrome(executable_path='/Users/weikunwu/Desktop/crawler/chromedriver')
+# specify absolute path for chromedriver
+driver = webdriver.Chrome(executable_path='path to chromedriver') 
 driver.get(url)
 
 WebDriverWait(driver, 10).until(
