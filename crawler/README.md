@@ -21,7 +21,10 @@ pip install -r requirements.txt
 Download chromedriver from https://chromedriver.chromium.org/downloads and put it in this folder
 
 Uncomment the corresponding line in crawl.py depending on your OS
-
+```python
+# driver = webdriver.Chrome('./chromedriver.exe') # windows
+# driver = webdriver.Chrome('./chromedriver') # mac or linux
+```
 Run the command
 ```sh
 python crawl.py
