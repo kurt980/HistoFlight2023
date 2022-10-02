@@ -22,8 +22,8 @@ Download chromedriver from https://chromedriver.chromium.org/downloads and put i
 
 Uncomment the corresponding line in crawl.py depending on your OS
 ```python
-# driver = webdriver.Chrome('./chromedriver.exe') # windows
-# driver = webdriver.Chrome('./chromedriver') # mac or linux
+# CHROMEDRIVER_PATH = './chromedriver.exe' # windows
+# CHROMEDRIVER_PATH = './chromedriver' # mac or linux
 ```
 Run the command
 ```sh
