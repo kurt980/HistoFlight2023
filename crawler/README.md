@@ -23,15 +23,6 @@ To deactivate from virtual environment, simply run
 deactivate
 ```
 
-## Selenium Setup
-Download chromedriver from https://chromedriver.chromium.org/downloads and put it in this folder
-<br>
-Uncomment the corresponding line in crawl.py depending on your OS
-```python
-# CHROMEDRIVER_PATH = './chromedriver.exe' # windows
-# CHROMEDRIVER_PATH = './chromedriver' # mac or linux
-```
-
 ## Data Crawling
 Run the command
 ```sh
