@@ -1,5 +1,5 @@
 # Google Flight Crawler
-In order to run the project, please ensure the latest version of python and nvm is installed
+This is a web crawler that crawl flight data from Google Flight
 
 ## Setup Project
 Run the following command to activate python virtual environment
