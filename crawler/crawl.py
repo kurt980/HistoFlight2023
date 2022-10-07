@@ -1,3 +1,4 @@
+from os import scandir
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
@@ -21,7 +22,6 @@ def clickButton(button):
         button.click()
         return True
     except:
-        print('button click failed')
         return False
 
 def scrapeData(url):
@@ -45,7 +45,13 @@ def scrapeData(url):
 
     print('Expanding flight details')
     for button in buttons:
+        errorCounter = 0
         while (not clickButton(button)):
+            errorCounter += 1
+            if errorCounter == 20:
+                scrapeData(url)
+                return
+            print('Expand failed, retry expanding')
             time.sleep(CLICK_INTERVAL)
         time.sleep(CLICK_INTERVAL)
     
@@ -63,7 +69,7 @@ def scrapeData(url):
 today = date.today()
 daysAhead = 1
 flightProps = ['nonstop', 'one way']
-cities = ['ORD', 'LAX', 'SFO']
+cities = ['ORD', 'LAX', 'SFO', 'CMI']
 baseUrl = 'https://www.google.com/travel/flights?q=Flights'
 for i in range(len(cities)):
     for j in range(i + 1, len(cities)):
