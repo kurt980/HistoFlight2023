@@ -1,6 +1,6 @@
 ## UML diagram
 
-![image](doc/UML.png)
+![image](./UML.png)
 
 ## Assumption
 
