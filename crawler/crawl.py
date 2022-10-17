@@ -1,4 +1,3 @@
-from os import scandir
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
@@ -49,37 +48,47 @@ def scrapeData(url):
         while (not clickButton(button)):
             errorCounter += 1
             if errorCounter == 20:
-                scrapeData(url)
-                return
+                return scrapeData(url)
             print('Expand failed, retry expanding')
             time.sleep(CLICK_INTERVAL)
         time.sleep(CLICK_INTERVAL)
     
-    outF = open("flight_data.txt", "a")
-    
-    print('Writing data to file')
+    data = []
     for el in elements:
-        outF.write(el.text)
-        outF.write('\n\nseperator\n\n')
+        data.append(el.text)
 
     driver.quit()
-    outF.close()
-    print('Stored data to file')
+    return data
 
 today = date.today()
-daysAhead = 1
+daysAhead = 60
 flightProps = ['nonstop', 'one way']
-cities = ['ORD', 'LAX', 'SFO', 'CMI']
+cities = ['ORD', 'LAX', 'SFO']
 baseUrl = 'https://www.google.com/travel/flights?q=Flights'
-for i in range(len(cities)):
-    for j in range(i + 1, len(cities)):
-        departCity = cities[i]
-        arrivalCity = cities[j]
+for departCity in cities:
+    for arrivalCity in cities:
+        if departCity == arrivalCity:
+            continue
 
         for timeDiff in range(1, daysAhead + 1):
             flightDate = today + timedelta(days=timeDiff)
             queryUrl = ' from ' + departCity + ' to ' + arrivalCity + ' on ' + str(flightDate) + ' ' + ' '.join(flightProps)
             url = baseUrl + quote(queryUrl)
-            scrapeData(url)
+            data = scrapeData(url)
+            
+            outF = open("flight_data.txt", "a")
+    
+            print('Writing data to file')
+
+            for datum in data:
+                outF.write("Ticket Date: ")
+                outF.write(today.strftime("%m-%d-%Y\n"))
+                outF.write("Departure Date: ")
+                outF.write(flightDate.strftime("%m-%d-%Y\n"))
+                outF.write(datum)
+                outF.write("\n\nseperator\n\n")
+
+            outF.close()
+            print('Stored data to file')
 
 
