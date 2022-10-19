@@ -14,7 +14,11 @@ import time
 
 from urllib.parse import quote
 
-CLICK_INTERVAL = 0.2
+today = date.today()
+daysAhead = 60
+flightProps = ['nonstop', 'one way']
+cities = ['ORD', 'LAX', 'SFO']
+baseUrl = 'https://www.google.com/travel/flights?q=Flights'
 
 def clickButton(button):
     try:
@@ -22,6 +26,19 @@ def clickButton(button):
         return True
     except:
         return False
+
+def expandDetails(buttons, interval):
+    for button in buttons:
+        errorCounter = 0
+        while not clickButton(button):
+            errorCounter += 1
+            print('Retry expanding a field')
+            if errorCounter == 20:
+                print('Expand failed')
+                return False
+            time.sleep(interval)
+        time.sleep(interval)
+    return True
 
 def scrapeData(url):
     WINDOW_SIZE = "1920,1080"
@@ -31,7 +48,7 @@ def scrapeData(url):
     chrome_options.add_argument("--window-size=%s" % WINDOW_SIZE)
 
     driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), chrome_options=chrome_options)
-    print('crawling from ' + url)
+    print('Crawling from ' + url)
     driver.get(url)
 
     WebDriverWait(driver, 10).until(
@@ -43,15 +60,21 @@ def scrapeData(url):
     buttons = driver.find_elements(By.XPATH, ".//button[contains(@aria-label, 'Flight details')]")
 
     print('Expanding flight details')
-    for button in buttons:
-        errorCounter = 0
-        while (not clickButton(button)):
-            errorCounter += 1
-            if errorCounter == 20:
-                return scrapeData(url)
-            print('Expand failed, retry expanding')
-            time.sleep(CLICK_INTERVAL)
-        time.sleep(CLICK_INTERVAL)
+    CLICK_INTERVAL = 0.2
+    while not expandDetails(buttons, CLICK_INTERVAL):
+        print('Retry crawling from ' + url)
+        driver.get(url)
+
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "YMlIz"))
+        )
+        print('Page opened')
+
+        elements = driver.find_elements(By.XPATH, "//div[@role='main']//li[not(@role='option')]")
+        buttons = driver.find_elements(By.XPATH, ".//button[contains(@aria-label, 'Flight details')]")
+        
+        CLICK_INTERVAL += 0.2
+
     
     data = []
     for el in elements:
@@ -60,11 +83,7 @@ def scrapeData(url):
     driver.quit()
     return data
 
-today = date.today()
-daysAhead = 60
-flightProps = ['nonstop', 'one way']
-cities = ['ORD', 'LAX', 'SFO']
-baseUrl = 'https://www.google.com/travel/flights?q=Flights'
+
 for departCity in cities:
     for arrivalCity in cities:
         if departCity == arrivalCity:
@@ -74,6 +93,7 @@ for departCity in cities:
             flightDate = today + timedelta(days=timeDiff)
             queryUrl = ' from ' + departCity + ' to ' + arrivalCity + ' on ' + str(flightDate) + ' ' + ' '.join(flightProps)
             url = baseUrl + quote(queryUrl)
+
             data = scrapeData(url)
             
             outF = open("flight_data.txt", "a")
