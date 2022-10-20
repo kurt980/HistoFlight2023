@@ -56,3 +56,11 @@ CREATE TABLE Flight (
     FOREIGN KEY (arrival_airport) REFERENCES Airport(IATA) ON DELETE CASCADE
 );
 
+-- create Operate table
+CREATE TABLE Operate (
+    airline_IATA VARCHAR(10),
+    airport_IATA VARCHAR(10),
+    PRIMARY KEY (airline_IATA, airport_IATA)
+    FOREIGN KEY (airline_IATA) REFERENCES Airline(IATA)
+    FOREIGN KEY (airport_IATA) REFERENCES Airport(IATA)
+)
