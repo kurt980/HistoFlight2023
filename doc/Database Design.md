@@ -2,13 +2,13 @@
 CREATE TABLE Airport (
     IATA VARCHAR(10) PRIMARY KEY
     airport_name VARCHAR(100) NOT NULL
-)
+);
 
 -- create Airline table
 CREATE TABLE Airline (
     IATA VARCHAR(10) PRIMARY KEY
     airline_name VARCHAR(100) NOT NULL
-)
+);
 
 -- create Comment table
 CREATE TABLE Comment (
@@ -16,16 +16,18 @@ CREATE TABLE Comment (
     text TEXT NOT NULL
     user_name VARCHAR(10) NOT NULL
     airline VARCHAR(20) NOT NULL
-)
+    FOREIGN KEY (user_name) REFERENCES User(user_name) ON DELETE CASCADE
+    FOREIGN KEY ()
+);
 
 -- create User table
 CREATE TABLE User (
-    username VARCHAR(10) PRIMARY KEY
+    user_name VARCHAR(10) PRIMARY KEY
     password VARCHAR(20) NOT NULL
     email VARCHAR(30)
     first_name VARCHAR(50)
     last_name VARCHAR(50)
-)
+);
 
 -- create Ticket table
 CREATE TABLE Ticket (
@@ -34,7 +36,7 @@ CREATE TABLE Ticket (
     purchase_date DATE NOT NULL
     CLASS VARCHAR(20)
     PRICE REAL NOT NULL
-)
+);
 
 -- create Flight table
 CREATE TABLE Flight (
@@ -48,4 +50,5 @@ CREATE TABLE Flight (
     travel_time TIME NOT NULL
     departure_airport VARCHAR(10)
     arrival_airport VARCHAR(10)
-)
+);
+
