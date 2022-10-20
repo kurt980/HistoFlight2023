@@ -17,6 +17,7 @@ from urllib.parse import quote
 today = date.today()
 daysAhead = 60
 flightProps = ['nonstop', 'one way']
+classOptions = ['economy']
 cities = ['ORD', 'LAX', 'SFO']
 baseUrl = 'https://www.google.com/travel/flights?q=Flights'
 
@@ -33,7 +34,7 @@ def expandDetails(buttons, interval):
         while not clickButton(button):
             errorCounter += 1
             print('Retry expanding a field')
-            if errorCounter == 20:
+            if errorCounter == 10:
                 print('Expand failed')
                 return False
             time.sleep(interval)
@@ -51,12 +52,11 @@ def scrapeData(url):
     print('Crawling from ' + url)
     driver.get(url)
 
-    WebDriverWait(driver, 10).until(
+    WebDriverWait(driver, 20).until(
         EC.presence_of_element_located((By.CLASS_NAME, "YMlIz"))
     )
     print('Page opened')
 
-    elements = driver.find_elements(By.XPATH, "//div[@role='main']//li[not(@role='option')]")
     buttons = driver.find_elements(By.XPATH, ".//button[contains(@aria-label, 'Flight details')]")
 
     print('Expanding flight details')
@@ -65,16 +65,16 @@ def scrapeData(url):
         print('Retry crawling from ' + url)
         driver.get(url)
 
-        WebDriverWait(driver, 10).until(
+        WebDriverWait(driver, 20).until(
             EC.presence_of_element_located((By.CLASS_NAME, "YMlIz"))
         )
         print('Page opened')
 
-        elements = driver.find_elements(By.XPATH, "//div[@role='main']//li[not(@role='option')]")
         buttons = driver.find_elements(By.XPATH, ".//button[contains(@aria-label, 'Flight details')]")
         
         CLICK_INTERVAL += 0.2
 
+    elements = driver.find_elements(By.XPATH, "//div[@role='main']//li[not(@role='option')]")
     
     data = []
     for el in elements:
@@ -91,24 +91,23 @@ for departCity in cities:
 
         for timeDiff in range(1, daysAhead + 1):
             flightDate = today + timedelta(days=timeDiff)
-            queryUrl = ' from ' + departCity + ' to ' + arrivalCity + ' on ' + str(flightDate) + ' ' + ' '.join(flightProps)
-            url = baseUrl + quote(queryUrl)
+            for flightClass in classOptions:
+                queryUrl = ' from ' + departCity + ' to ' + arrivalCity + ' on ' + str(flightDate) + ' ' + ' '.join(flightProps) + ' ' + flightClass
+                url = baseUrl + quote(queryUrl)
 
-            data = scrapeData(url)
-            
-            outF = open("flight_data.txt", "a")
-    
-            print('Writing data to file')
+                data = scrapeData(url)
+                
+                outF = open("flight_data.txt", "a")
+        
+                print('Writing data to file')
 
-            for datum in data:
-                outF.write("Ticket Date: ")
-                outF.write(today.strftime("%m-%d-%Y\n"))
-                outF.write("Departure Date: ")
-                outF.write(flightDate.strftime("%m-%d-%Y\n"))
-                outF.write(datum)
-                outF.write("\n\nseperator\n\n")
+                for datum in data:
+                    outF.write("Ticket Date: ")
+                    outF.write(today.strftime("%m-%d-%Y\n"))
+                    outF.write("Departure Date: ")
+                    outF.write(flightDate.strftime("%m-%d-%Y\n"))
+                    outF.write(datum)
+                    outF.write("\n\nseperator\n\n")
 
-            outF.close()
-            print('Stored data to file')
-
-
+                outF.close()
+                print('Stored data to file')
