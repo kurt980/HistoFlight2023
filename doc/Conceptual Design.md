@@ -38,7 +38,7 @@
 
 **Airport**( <br>
 &emsp;&emsp;  IATA:    &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;     varchar(10) &emsp;[PK]<br>
-&emsp;&emsp;  airport_name:    &emsp;&emsp;     varchar(20) &emsp;[FK to Flight.flight_id]<br>
+&emsp;&emsp;  airport_name:    &emsp;&emsp;     varchar(20) &emsp;
 
 **User**( <br>
 &emsp;&emsp;  user_name:    &emsp;&emsp;&emsp;&nbsp;     varchar(10) &emsp;[PK]<br>
