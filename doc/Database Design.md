@@ -109,9 +109,9 @@
 
     );
    
-    -- create Operate Airport
+    -- create Airport table
     
-    CREATE TABLE Operate (
+    CREATE TABLE Airport(
     
         IATA VARCHAR(10) PRIMARY KEY,
         
