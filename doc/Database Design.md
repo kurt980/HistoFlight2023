@@ -31,11 +31,11 @@
 
     CREATE TABLE User (
 
-        user_name VARCHAR(50) PRIMARY KEY,
+        user_name VARCHAR(100) PRIMARY KEY,
 
-        password VARCHAR(20) NOT NULL,
+        password VARCHAR(100) NOT NULL,
 
-        email VARCHAR(30),
+        email VARCHAR(100),
 
         first_name VARCHAR(50),
 
