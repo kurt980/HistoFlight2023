@@ -1,13 +1,13 @@
 ### Data Definition Language
--- create Airline table
+    -- create Airline table
 
-CREATE TABLE Airline (
+    CREATE TABLE Airline (
 
-    IATA VARCHAR(10) PRIMARY KEY,
-    
-    airline_name VARCHAR(100) NOT NULL
-    
-);
+        IATA VARCHAR(10) PRIMARY KEY,
+
+        airline_name VARCHAR(100) NOT NULL
+
+    );
 
 -- create Comment table
 
