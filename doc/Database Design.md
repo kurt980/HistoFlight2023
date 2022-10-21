@@ -108,6 +108,14 @@
         FOREIGN KEY (airport_IATA) REFERENCES Airport(IATA)
 
     );
+   
+    -- create Operate Airport
+    
+        CREATE TABLE Operate (
+
+        IATA VARCHAR(10) PRIMARY KEY,
+        airport_name VARCHAR(50)
+    );
 
 
 
