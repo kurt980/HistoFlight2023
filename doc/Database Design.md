@@ -31,11 +31,11 @@
 
     CREATE TABLE User (
 
-        user_name VARCHAR(50) PRIMARY KEY,
+        user_name VARCHAR(100) PRIMARY KEY,
 
-        password VARCHAR(20) NOT NULL,
+        password VARCHAR(100) NOT NULL,
 
-        email VARCHAR(30),
+        email VARCHAR(100),
 
         first_name VARCHAR(50),
 
@@ -47,15 +47,15 @@
 
     CREATE TABLE Ticket (
 
-        ticket_id VARCHAR(20) PRIMARY KEY,
+        ticket_id VARCHAR(64) PRIMARY KEY,
 
         flight_id VARCHAR(64) NOT NULL,
 
-        purchase_date DATE NOT NULL,
+        purchase_date DATE,
 
-        CLASS VARCHAR(20),
+        CLASS VARCHAR(50),
 
-        PRICE REAL NOT NULL,
+        PRICE REAL,
 
         FOREIGN KEY (flight_id) REFERENCES Flight(flight_id) ON DELETE CASCADE
 
@@ -71,19 +71,19 @@
 
         airline_code VARCHAR(10) NOT NULL,
 
-        departure_date DATE NOT NULL,
+        departure_date DATE,
 
-        departure_time TIME NOT NULL,
+        departure_time TIME,
 
-        arrival_date DATE NOT NULL,
+        arrival_date DATE,
 
-        arrival_time TIME NOT NULL,
+        arrival_time TIME,
 
-        travel_time TIME NOT NULL,
+        travel_time TIME,
 
-        departure_airport VARCHAR(10),
+        departure_airport VARCHAR(20),
 
-        arrival_airport VARCHAR(10),
+        arrival_airport VARCHAR(20),
 
         FOREIGN KEY (airline_code) REFERENCES Airline(IATA) ON DELETE CASCADE,
 
@@ -107,6 +107,15 @@
 
         FOREIGN KEY (airport_IATA) REFERENCES Airport(IATA)
 
+    );
+   
+    -- create Operate Airport
+    
+    CREATE TABLE Operate (
+    
+        IATA VARCHAR(10) PRIMARY KEY,
+        
+        airport_name VARCHAR(50)
     );
 
 
