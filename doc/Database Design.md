@@ -81,9 +81,9 @@
 
         travel_time TIME,
 
-        departure_airport VARCHAR(50),
+        departure_airport VARCHAR(10),
 
-        arrival_airport VARCHAR(50),
+        arrival_airport VARCHAR(10),
 
         FOREIGN KEY (airline_code) REFERENCES Airline(IATA) ON DELETE CASCADE,
 
