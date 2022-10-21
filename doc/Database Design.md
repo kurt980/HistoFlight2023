@@ -63,4 +63,21 @@ CREATE TABLE Operate (
     PRIMARY KEY (airline_IATA, airport_IATA)
     FOREIGN KEY (airline_IATA) REFERENCES Airline(IATA)
     FOREIGN KEY (airport_IATA) REFERENCES Airport(IATA)
-)
+);
+
+
+
+
+## Advanced Query 1:
+# get number of flights to an airport given a range of date
+-- compute number of flights to a certain airport name given a range of date; provides accessibility for user
+SELECT COUNT(Flight.flight_number) AS Visits, Airport.airport_name AS Airport
+
+FROM Flight JOIN Airport ON Flight.arrival_airport = Airport.IATA
+
+WHERE Flight.arrival_date BETWEEN '2022-09-20' AND '2020-10-20'
+
+GROUP BY Airport.IATA
+
+ORDER BY Visits ASC;
+
