@@ -18,15 +18,19 @@ def processRawTicket(rawTicket):
     if (len(flightTimes) == 0):
         return None
 
-    departureTime = flightTimes[0][0]
-    
+    departureTimeStr = flightTimes[0][0]
+    departureTimeObject = datetime.strptime(departureTimeStr, "%I:%M %p")
+    departureTime = departureTimeObject.strftime("%H:%M")
+
     departureDateObject = datetime.strptime(rawdepartureDate, "%m-%d-%Y")
     arrivalDateObject = departureDateObject if flightTimes[1][1] == "" else departureDateObject + timedelta(days=int(flightTimes[1][1].split("+")[-1]))
 
 
     departureDate = departureDateObject.strftime("%m-%d-%Y")
     arrivalDate = arrivalDateObject.strftime("%m-%d-%Y")
-    arrivalTime = flightTimes[1][0]
+    arrivalTimeStr = flightTimes[1][0]
+    arrivalTimeObject = datetime.strptime(arrivalTimeStr, "%I:%M %p")
+    arrivalTime = arrivalTimeObject.strftime("%H:%M")
 
     travelTime = re.findall("Travel time: ((\d{1,2} hr)? ?(\d{1,2} min)?)", rawTicket)
 
@@ -103,6 +107,7 @@ ticketWriter.writerow(ticketFields)
 # processedData = processRawTicket(dataArray[0])
 
 airportSet= set()
+flightSet = set()
 for data in dataArray:
     # print("data",data)
     if (data == ""):
@@ -110,7 +115,9 @@ for data in dataArray:
     processedData = processRawTicket(data)
     if processedData is None:
         continue
-    flightWriter.writerow(processedData["flight"])
+    if processedData["flight"][0] not in airportSet:
+        flightWriter.writerow(processedData["flight"])
+        flightSet.add(processedData["flight"][0])
     if processedData["departAirport"][0] not in airportSet:
         airportWriter.writerow(processedData["departAirport"])
         airportSet.add(processedData["departAirport"][0])
