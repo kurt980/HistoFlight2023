@@ -17,9 +17,9 @@
 
         text TEXT,
 
-        user_name VARCHAR(50) NOT NULL,
+        user_name VARCHAR(100) NOT NULL,
 
-        airline VARCHAR(20) NOT NULL,
+        airline VARCHAR(100) NOT NULL,
 
         FOREIGN KEY (user_name) REFERENCES User(user_name) ON DELETE CASCADE,
 
