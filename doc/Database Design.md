@@ -1,16 +1,19 @@
 -- create Airport table
+
 CREATE TABLE Airport (
     IATA VARCHAR(10) PRIMARY KEY,
     airport_name VARCHAR(100) NOT NULL
 );
 
 -- create Airline table
+
 CREATE TABLE Airline (
     IATA VARCHAR(10) PRIMARY KEY,
     airline_name VARCHAR(100) NOT NULL
 );
 
 -- create Comment table
+
 CREATE TABLE Comment (
     comment_id INTEGER PRIMARY KEY,
     text TEXT NOT NULL,
@@ -21,6 +24,7 @@ CREATE TABLE Comment (
 );
 
 -- create User table
+
 CREATE TABLE User (
     user_name VARCHAR(10) PRIMARY KEY,
     password VARCHAR(20) NOT NULL,
@@ -30,6 +34,7 @@ CREATE TABLE User (
 );
 
 -- create Ticket table
+
 CREATE TABLE Ticket (
     ticket_id VARCHAR(20) PRIMARY KEY,
     flight_id VARCHAR(20) NOT NULL,
@@ -40,6 +45,7 @@ CREATE TABLE Ticket (
 );
 
 -- create Flight table
+
 CREATE TABLE Flight (
     flight_id VARCHAR(20) PRIMARY KEY,
     flight_number VARCHAR(30) NOT NULL,
@@ -57,6 +63,7 @@ CREATE TABLE Flight (
 );
 
 -- create Operate table
+
 CREATE TABLE Operate (
     airline_IATA VARCHAR(10),
     airport_IATA VARCHAR(10),
@@ -70,6 +77,7 @@ CREATE TABLE Operate (
 
 ### Advanced Query 1: get number of flights to an airport given a range of date
 -- compute number of flights to a certain airport name given a range of date; provides accessibility for user
+
 SELECT COUNT(Flight.flight_number) AS Visits, Airport.airport_name AS Airport
 
 FROM Flight JOIN Airport ON Flight.arrival_airport = Airport.IATA
