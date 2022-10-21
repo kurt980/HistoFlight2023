@@ -111,7 +111,7 @@
    
     -- create Airport table
     
-    CREATE TABLE Airport(
+    CREATE TABLE Airport (
     
         IATA VARCHAR(10) PRIMARY KEY,
         
