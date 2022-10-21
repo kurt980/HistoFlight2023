@@ -69,7 +69,7 @@ CREATE TABLE Operate (
 
 
 ## Advanced Query 1:
-# get number of flights to an airport given a range of date
+### get number of flights to an airport given a range of date
 -- compute number of flights to a certain airport name given a range of date; provides accessibility for user
 SELECT COUNT(Flight.flight_number) AS Visits, Airport.airport_name AS Airport
 
