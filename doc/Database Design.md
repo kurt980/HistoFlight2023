@@ -15,7 +15,7 @@
 
         comment_id INTEGER PRIMARY KEY,
 
-        text TEXT NOT NULL,
+        text TEXT,
 
         user_name VARCHAR(50) NOT NULL,
 
