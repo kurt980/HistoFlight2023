@@ -41,8 +41,8 @@
 &emsp;&emsp;  airport_name:    &emsp;&emsp;     varchar(50) &emsp;
 
 **User**( <br>
-&emsp;&emsp;  user_name:    &emsp;&emsp;&emsp;&nbsp;     varchar(10) &emsp;[PK]<br>
-&emsp;&emsp;  password:    &emsp;&emsp;&emsp;&ensp;&nbsp;     varchar(20) <br>
+&emsp;&emsp;  user_name:    &emsp;&emsp;&emsp;&nbsp;     varchar(100) &emsp;[PK]<br>
+&emsp;&emsp;  password:    &emsp;&emsp;&emsp;&ensp;&nbsp;     varchar(100) <br>
 &emsp;&emsp;  email: &emsp;&ensp;&nbsp;&emsp;&emsp;&emsp;&nbsp;&ensp;     varchar(100)<br>
 &emsp;&emsp;  firstname: &emsp;&ensp;&nbsp;&emsp;&ensp;&ensp;    varchar(50)<br>
 &emsp;&emsp;  lastname: &emsp;&ensp;&nbsp;&emsp;&emsp;&nbsp;     varchar(50)<br>
