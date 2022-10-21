@@ -75,8 +75,8 @@ CREATE TABLE Operate (
 
 
 
-### Advanced Query 1: get number of flights to an airport given a range of date
--- compute number of flights to a certain airport name given a range of date; provides accessibility for user
+### Advanced Query 1: get number of flights to a destination given a range of dates
+-- compute number of flights (from a certain airport) to a certain airport name given a range of dates; provides accessibility for user
 
 SELECT COUNT(Flight.flight_number) AS Visits, Airport.airport_name AS Airport
 
@@ -86,5 +86,20 @@ WHERE Flight.arrival_date BETWEEN '2022-09-20' AND '2020-10-20'
 
 GROUP BY Airport.IATA
 
-ORDER BY Visits ASC;
+ORDER BY Visits DESC;
 
+
+### Advanced Query 2: get daily average flight price for each destination in a range of dates
+-- compute daily average purchase price of flights (from a certain airport) to a certain airport given a range of dates; provides average price information for user
+
+SELECT AVG(t.price) AS Avg_price, t.purchase_date AS Purchase_date, a.airport_name AS Airport
+
+FROM Ticket t JOIN Flight f USING(flight_id)
+
+JOIN Airport a ON f.arrival_airport = a.IATA
+
+WHERE t.purchase_date BETWEEN '2022-09-20' AND '2020-10-20'
+
+GROUP BY a.IATA, t.purchase_date
+
+ORDER BY Purchase_date DESC, Avg_price DESC, Airport ASC;
