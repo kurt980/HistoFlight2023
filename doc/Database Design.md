@@ -15,11 +15,11 @@
 
         comment_id INTEGER PRIMARY KEY,
 
-        text TEXT NOT NULL,
+        text TEXT,
 
-        user_name VARCHAR(10) NOT NULL,
+        user_name VARCHAR(100) NOT NULL,
 
-        airline VARCHAR(20) NOT NULL,
+        airline VARCHAR(100) NOT NULL,
 
         FOREIGN KEY (user_name) REFERENCES User(user_name) ON DELETE CASCADE,
 
@@ -31,7 +31,7 @@
 
     CREATE TABLE User (
 
-        user_name VARCHAR(10) PRIMARY KEY,
+        user_name VARCHAR(50) PRIMARY KEY,
 
         password VARCHAR(20) NOT NULL,
 
@@ -49,7 +49,7 @@
 
         ticket_id VARCHAR(20) PRIMARY KEY,
 
-        flight_id VARCHAR(20) NOT NULL,
+        flight_id VARCHAR(64) NOT NULL,
 
         purchase_date DATE NOT NULL,
 
@@ -65,7 +65,7 @@
 
     CREATE TABLE Flight (
 
-        flight_id VARCHAR(20) PRIMARY KEY,
+        flight_id VARCHAR(64) PRIMARY KEY,
 
         flight_number VARCHAR(30) NOT NULL,
 
