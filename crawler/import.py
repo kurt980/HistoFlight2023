@@ -85,11 +85,11 @@ dataArray = rawdata.split("\n\nseperator\n\n")
 # print(processRawTicket(dataArray[0]))
 
 flightTable = open('../data/flight.csv', 'a')
-# airportTable = open('../data/airport.csv', 'a')
+airportTable = open('../data/airport.csv', 'a')
 ticketTable = open('../data/ticket.csv', 'a')
 
 flightWriter = csv.writer(flightTable)
-# airportWriter = csv.writer(airportTable)
+airportWriter = csv.writer(airportTable)
 ticketWriter = csv.writer(ticketTable)
 
 flightFields = ["flight_id", "flight_number", "airline_code", "departure_date", "departure_time", "arrival_date", "arrival_time", "travel_time", "departure_airport", "arrival_airport"]
@@ -97,11 +97,12 @@ airportFields = ["IATA", "airport_name"]
 ticketFields = ["ticket_id", "flight_id", "purchase_date", "class", "price"]
 
 flightWriter.writerow(flightFields)
-# airportWriter.writerow(airportFields)
+airportWriter.writerow(airportFields)
 ticketWriter.writerow(ticketFields)
 
 # processedData = processRawTicket(dataArray[0])
 
+airportSet= set()
 for data in dataArray:
     # print("data",data)
     if (data == ""):
@@ -110,6 +111,10 @@ for data in dataArray:
     if processedData is None:
         continue
     flightWriter.writerow(processedData["flight"])
-    # airportWriter.writerow(processedData["departAirport"])
-    # airportWriter.writerow(processedData["arrivalAirport"])
+    if processedData["departAirport"][0] not in airportSet:
+        airportWriter.writerow(processedData["departAirport"])
+        airportSet.add(processedData["departAirport"][0])
+    if processedData["arrivalAirport"][0] not in airportSet:
+        airportWriter.writerow(processedData["arrivalAirport"])
+        airportSet.add(processedData["arrivalAirport"][0])
     ticketWriter.writerow(processedData["ticket"])
