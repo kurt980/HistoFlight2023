@@ -73,9 +73,9 @@ def scrapeData(url):
         buttons = driver.find_elements(By.XPATH, ".//button[contains(@aria-label, 'Flight details')]")
         
         CLICK_INTERVAL += 0.2
+        
+    elements = driver.find_elements(By.XPATH, "//div[@role='main']//li[@class='pIav2d']")
 
-    elements = driver.find_elements(By.XPATH, "//div[@role='main']//li[not(@role='option')]")
-    
     data = []
     for el in elements:
         data.append(el.text)
