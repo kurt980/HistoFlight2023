@@ -17,17 +17,17 @@
 ## Relational Schema
 
 **Ticket**( <br>
-&emsp;&emsp;  ticket_id:    &emsp;&emsp;&emsp;&emsp;     varchar(20) &emsp;[PK]<br>
-&emsp;&emsp;  flight_id:    &emsp;&emsp;&emsp;&emsp;     varchar(20) &emsp;&nbsp;[FK to Flight.flight_id]<br>
+&emsp;&emsp;  ticket_id:    &emsp;&emsp;&emsp;&emsp;     varchar(64) &emsp;[PK]<br>
+&emsp;&emsp;  flight_id:    &emsp;&emsp;&emsp;&emsp;     varchar(64) &emsp;&nbsp;[FK to Flight.flight_id]<br>
 &emsp;&emsp;  purchase_date: &emsp;     date  <br>
-&emsp;&emsp;  class: &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;     varchar(20)  <br>
+&emsp;&emsp;  class: &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;     varchar(50)  <br>
 &emsp;&emsp;  price: &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;     real  <br>
 
 
 **Flight**( <br>
-&emsp;&emsp;  flight_id:    &emsp;&emsp;&emsp;&emsp;&nbsp;     varchar(20) &emsp;[PK]<br>
-&emsp;&emsp;  flight_number:    &emsp;&ensp;&nbsp;     varchar(20)  <br>
-&emsp;&emsp;  airline_code: &emsp;&nbsp;&emsp;&nbsp;     varchar(5) &emsp;&nbsp; [FK to Airline.IATA]<br>
+&emsp;&emsp;  flight_id:    &emsp;&emsp;&emsp;&emsp;&nbsp;     varchar(64) &emsp;[PK]<br>
+&emsp;&emsp;  flight_number:    &emsp;&ensp;&nbsp;     varchar(30)  <br>
+&emsp;&emsp;  airline_code: &emsp;&nbsp;&emsp;&nbsp;     varchar(10) &emsp;&nbsp; [FK to Airline.IATA]<br>
 &emsp;&emsp;  departure_date: &ensp;&nbsp;&nbsp;     date  <br>
 &emsp;&emsp;  departure_time: &ensp;&nbsp;&nbsp;    time  <br>
 &emsp;&emsp;  arrival_date: &emsp;&emsp;&ensp;&nbsp;     date  <br>
@@ -38,24 +38,24 @@
 
 **Airport**( <br>
 &emsp;&emsp;  IATA:    &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;     varchar(10) &emsp;[PK]<br>
-&emsp;&emsp;  airport_name:    &emsp;&emsp;     varchar(20) &emsp;
+&emsp;&emsp;  airport_name:    &emsp;&emsp;     varchar(50) &emsp;
 
 **User**( <br>
 &emsp;&emsp;  user_name:    &emsp;&emsp;&emsp;&nbsp;     varchar(10) &emsp;[PK]<br>
 &emsp;&emsp;  password:    &emsp;&emsp;&emsp;&ensp;&nbsp;     varchar(20) <br>
-&emsp;&emsp;  email: &emsp;&ensp;&nbsp;&emsp;&emsp;&emsp;&nbsp;&ensp;     varchar(30)<br>
-&emsp;&emsp;  firstname: &emsp;&ensp;&nbsp;&emsp;&ensp;&ensp;    varchar(10)<br>
-&emsp;&emsp;  lastname: &emsp;&ensp;&nbsp;&emsp;&emsp;&nbsp;     varchar(10)<br>
+&emsp;&emsp;  email: &emsp;&ensp;&nbsp;&emsp;&emsp;&emsp;&nbsp;&ensp;     varchar(100)<br>
+&emsp;&emsp;  firstname: &emsp;&ensp;&nbsp;&emsp;&ensp;&ensp;    varchar(50)<br>
+&emsp;&emsp;  lastname: &emsp;&ensp;&nbsp;&emsp;&emsp;&nbsp;     varchar(50)<br>
 
 **Comment**( <br>
-&emsp;&emsp;  comment_id:    &emsp;&emsp;&ensp;     varchar(10) &emsp;[PK]<br>
-&emsp;&emsp;  text:    &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&nbsp;     varchar(255) <br>
-&emsp;&emsp;  user_name:    &emsp;&emsp;&emsp;&nbsp;     varchar(10) &emsp;[FK to User.user_name]<br>
-&emsp;&emsp;  airline: &emsp;&ensp;&nbsp;&emsp;&emsp;&emsp;&ensp;     varchar(20)&emsp;&nbsp;[FK to Airline.IATA]<br>
+&emsp;&emsp;  comment_id:    &emsp;&emsp;&ensp;     integer &emsp;[PK]<br>
+&emsp;&emsp;  text:    &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&nbsp;     varchar(100) <br>
+&emsp;&emsp;  user_name:    &emsp;&emsp;&emsp;&nbsp;     varchar(100) &emsp;[FK to User.user_name]<br>
+&emsp;&emsp;  airline: &emsp;&ensp;&nbsp;&emsp;&emsp;&emsp;&ensp;     varchar(100)&emsp;&nbsp;[FK to Airline.IATA]<br>
 
 **Airline**( <br>
 &emsp;&emsp;  IATA:    &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;    varchar(10) &emsp;[PK]<br>
-&emsp;&emsp;  airline_name:    &emsp;&emsp;&ensp;     varchar(20) <br>
+&emsp;&emsp;  airline_name:    &emsp;&emsp;&ensp;     varchar(100) <br>
 
 **Operate**( <br>
 &emsp;&emsp;  airline_IATA:   &emsp;&emsp;&ensp;&ensp;    varchar(10) &emsp;[PK][FK to Airport.IATA]<br>
