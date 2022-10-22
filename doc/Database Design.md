@@ -206,10 +206,17 @@ Adding index on departure_date or flight_number does not affect the query perfor
 ![image](./images/explainanaly_first_qury2.png)
 The cost of the query took 6.765 seconds to complete. From the analysis, we see that the query is filter on non-indexed columns such as departure_date from Flight table and price from Ticket table. We could possibly add index to these columns to optimize the performance of our query.
 
+#### Add index on departure date from Flight
+
 ![image](./images/firsrtry_index_query2_add_departure_date.png)
+The cost of the query drop from 6.765 seconds to 1.271 seconds. Having the index on departure_date increases the performance of filtering through this column.
+
+#### Add index on price from Ticket
 
 ![image](./images/secondtry_index_query2_add_price.png)
+The cost of the query drop from 6.765 seconds to 2.214 seconds. Having the index on price enable it to quickly look for the rows that is cheaper than the average price.
+
+#### Add index on both departure date from Flight and price from Ticket
 
 ![image](./images/thirdtry_index_query2_add_price_and_departuredate.png)
-
-
+The cost of the total operation dropped significantly from 6.765 seconds to 0.228 seconds because of the added index.
