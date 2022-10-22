@@ -1,5 +1,5 @@
 ### Connection to GCP
-![image](./Connection_GCP.png)
+![image](./images/Connection_GCP.png)
 
 
 ### Data Definition Language
@@ -123,7 +123,7 @@
     );
 
 ### Show at least 1000 rows
-![image](./rows_over1000.png)
+![image](./images/rows_over1000.png)
 
 ### Advanced Query 1: get number of flights to a destination given a range of dates
     -- compute number of flights (from a certain airport) to a certain airport name given a range of dates; provides accessibility for user
@@ -141,7 +141,7 @@
     ORDER BY Visits DESC;
 
 <p align="center">
-    <img src="./query1.png" width=60% height=60%>
+    <img src="./images/query1.png" width=60% height=60%>
 </p>
 
 ### Advanced Query 2: get daily average flight price for each destination in a range of dates
@@ -175,33 +175,33 @@
     
 
 <p align="center">
-    <img src="./query2.png" width=60% height=60%>
+    <img src="./images/query2.png" width=60% height=60%>
 </p>
 
 ### EXPLAIN ANALYZE
 #### Query 1
 #### Before adding indexing
-![image](./explainanaly_first.png)
+![image](./images/explainanaly_first.png)
 
 The cost of Index lookup on Flight using arrival_airport (arrival_airport='LAX') is 24.63 with scaning 1137 rows. The time to scan the first row is 0.297, and that turns to be 2.742 after finishing scanning all the rows.
 
 #### Add index on arrival date from Flight
-![image](./firsrtry_index_query1.png)
+![image](./images/firsrtry_index_query1.png)
 
 The cost of the total operation dropped significantly from 3 seconds to 0.4 seconds because of the added index on arrival_date. It now first filter the table by the arrival_airport, and then index range search on the arrival_date. Before, it must do a full table filter on arrival_date which is very costly without the indexing.
 
 #### Add index on departure_date from Flight
 
-![image](./secondtry_index_query1.png)
+![image](./images/secondtry_index_query1.png)
 
 
 #### Add index on flight_number from Flight
 
-![image](./thirdtry_index_query1.png)
+![image](./images/thirdtry_index_query1.png)
 
 Adding index on departure_date or flight_number does not affect the query performance much since the query does not query on these columns
 
 #### Query 2
 #### Before adding indexing
-![image](./explainanaly_first_qury2.png)
+![image](./images/explainanaly_first_qury2.png)
 The cost of the query took 6.765 seconds to complete. From the analysis, we see that the query is filter on non-indexed columns such as departure_date from Flight table and price from Ticket table. We could possibly add index to these columns to optimize the performance of our query.
