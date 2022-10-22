@@ -171,4 +171,4 @@
                 
     LIMIT 15
     
-    ![image](./query2.png)
+![image](./query2.png)
