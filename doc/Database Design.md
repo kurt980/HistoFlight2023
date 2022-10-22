@@ -171,4 +171,4 @@
                 
     LIMIT 15
     
-![image](./query2.png width=50%)
+![image](./query2.png =250x)
