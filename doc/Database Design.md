@@ -220,3 +220,7 @@ The cost of the query drop from 6.765 seconds to 2.214 seconds. Having the index
 
 ![image](./images/thirdtry_index_query2_add_price_and_departuredate.png)
 The cost of the total operation dropped significantly from 6.765 seconds to 0.228 seconds because of the added index.
+
+#### Conclusion
+
+From the above analysis, we decide to apply index on departure date and arrival date from Flight, as well as price from Ticket since it yields a much better performance.
