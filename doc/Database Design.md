@@ -188,3 +188,14 @@ The cost of Index lookup on Flight using arrival_airport (arrival_airport='LAX')
 ![image](./firsrtry_index_query1.png)
 
 The cost of the total operation dropped significantly from 3 seconds to 0.4 seconds because of the added index on arrival_date. It now first filter the table by the arrival_airport, and then index range search on the arrival_date. Before, it must do a full table filter on arrival_date which is very costly without the indexing.
+
+#### Add index on departure_date from Flight
+
+![image](./firsrtry_index_query1.png)
+
+
+#### Add index on flight_number from Flight
+
+![image](./firsrtry_index_query1.png)
+
+
