@@ -140,9 +140,10 @@
 
     ORDER BY Visits DESC;
 
+![image](./query1.png)
 
 ### Advanced Query 2: get daily average flight price for each destination in a range of dates
-    -- compute daily average purchase price of flights (from a certain airport) to a certain airport given a range of dates; provides average price information for user
+    -- find all the flight information for ORD to LAX on 2022-10-23 whose price less than the average price in nearest 4 days(2022-10-21 to 2022-10-24)
 
     SELECT flight_number, airline_code, departure_date, CLASS, PRICE
     
@@ -169,3 +170,5 @@
                 GROUP BY departure_airport, arrival_airport)
                 
     LIMIT 15
+    
+    ![image](./query2.png)
