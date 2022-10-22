@@ -180,5 +180,5 @@
 
 ### EXPLAIN ANALYZE
 #### Before adding indexing
-![image](./explainanaly_first.png.png)
+![image](./explainanaly_first.png)
 
