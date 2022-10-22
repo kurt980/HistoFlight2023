@@ -198,4 +198,5 @@ The cost of the total operation dropped significantly from 3 seconds to 0.4 seco
 
 ![image](./thirdtry_index_query1.png)
 
+Adding index on departure_date or flight_number does not affect the query performance much since the query does not query on these columns
 
