@@ -182,3 +182,6 @@
 #### Before adding indexing
 ![image](./explainanaly_first.png)
 
+The cost of Index lookup on Flight using arrival_airport (arrival_airport='LAX') is 24.63 with scaning 1137 rows. The time to scan the first row is 0.297, and that turns to be 2.742 after finishing scanning all the rows.
+
+
