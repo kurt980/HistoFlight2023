@@ -191,11 +191,11 @@ The cost of the total operation dropped significantly from 3 seconds to 0.4 seco
 
 #### Add index on departure_date from Flight
 
-![image](./firsrtry_index_query1.png)
+![image](./secondtry_index_query1.png)
 
 
 #### Add index on flight_number from Flight
 
-![image](./firsrtry_index_query1.png)
+![image](./thirdtry_index_query1.png)
 
 
