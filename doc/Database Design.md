@@ -132,7 +132,9 @@
 
     FROM Flight JOIN Airport ON Flight.arrival_airport = Airport.IATA
 
-    WHERE Flight.arrival_date BETWEEN '2022-09-20' AND '2020-10-20'
+    WHERE Flight.arrival_date BETWEEN '2022-10-20' AND '2022-10-24'
+    
+    AND Airport.IATA = "LAX"
 
     GROUP BY Airport.IATA
 
@@ -142,13 +144,28 @@
 ### Advanced Query 2: get daily average flight price for each destination in a range of dates
     -- compute daily average purchase price of flights (from a certain airport) to a certain airport given a range of dates; provides average price information for user
 
-    SELECT AVG(t.price) AS Avg_price, t.purchase_date AS Purchase_date, a.airport_name AS Airport
-
-    FROM Ticket t JOIN Flight f USING(flight_id)
-    JOIN Airport a ON f.arrival_airport = a.IATA
-
-    WHERE t.purchase_date BETWEEN '2022-09-20' AND '2020-10-20'
-
-    GROUP BY a.IATA, t.purchase_date
-
-    ORDER BY Purchase_date DESC, Avg_price DESC, Airport ASC;
+    SELECT flight_number, airline_code, departure_date, CLASS, PRICE
+    
+    FROM Ticket JOIN Flight USING(flight_id)
+    
+    WHERE departure_date = "2022-10-23"
+    
+    AND departure_airport = "ORD"
+    
+    AND arrival_airport = "LAX"
+    
+    AND price <=
+    
+                (SELECT AVG(price)
+                
+                FROM Ticket JOIN Flight USING(flight_id)
+                
+                WHERE departure_date BETWEEN "2022-10-21" AND "2022-10-24"
+                
+                AND departure_airport = "ORD"
+                
+                AND arrival_airport = "LAX"
+                
+                GROUP BY departure_airport, arrival_airport)
+                
+    LIMIT 15
