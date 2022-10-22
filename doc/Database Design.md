@@ -178,3 +178,7 @@
     <img src="./query2.png" width=60% height=60%>
 </p>
 
+### EXPLAIN ANALYZE
+#### Before adding indexing
+![image](./explainanaly_first.png.png)
+
