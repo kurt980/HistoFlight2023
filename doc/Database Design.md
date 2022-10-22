@@ -1,3 +1,7 @@
+### Connection to GCP
+![image](./Connection_GCP.png)
+
+
 ### Data Definition Language
     -- create Airline table
 
