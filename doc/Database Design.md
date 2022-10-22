@@ -122,7 +122,8 @@
         airport_name VARCHAR(50)
     );
 
-
+### Show at least 1000 rows
+![image](./rows_over1000.png)
 
 ### Advanced Query 1: get number of flights to a destination given a range of dates
     -- compute number of flights (from a certain airport) to a certain airport name given a range of dates; provides accessibility for user
