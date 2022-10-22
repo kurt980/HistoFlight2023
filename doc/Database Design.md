@@ -140,6 +140,9 @@
 
     ORDER BY Visits DESC;
 
+<p align="center">
+    <img src="./query1.png" width=60% height=60%>
+</p>
 
 <img src="./query1.png" width=60% height=60%>
 
