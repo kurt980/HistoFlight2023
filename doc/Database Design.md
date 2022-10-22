@@ -140,7 +140,7 @@
 
     ORDER BY Visits DESC;
 
-![image](./query1.png)
+![image](./query1.png width=50%)
 
 ### Advanced Query 2: get daily average flight price for each destination in a range of dates
     -- find all the flight information for ORD to LAX on 2022-10-23 whose price less than the average price in nearest 4 days(2022-10-21 to 2022-10-24)
@@ -171,4 +171,4 @@
                 
     LIMIT 15
     
-    ![image](./query2.png)
+![image](./query2.png width=50%)
