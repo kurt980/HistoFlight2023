@@ -1,0 +1,1 @@
+gcloud sql connect cheap-db --user=root
