@@ -57,9 +57,9 @@
 
         purchase_date DATE,
 
-        CLASS VARCHAR(50),
+        class VARCHAR(50),
 
-        PRICE REAL,
+        price REAL,
 
         FOREIGN KEY (flight_id) REFERENCES Flight(flight_id) ON DELETE CASCADE
 
