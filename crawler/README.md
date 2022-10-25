@@ -28,3 +28,8 @@ Run the command
 ```sh
 python crawl.py
 ```
+## Data processing
+Run the command to generate airport, flight and ticket csv. Make sure they do not currently exist in the data directory before running
+```sh
+python processData.py
+```
