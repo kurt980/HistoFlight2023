@@ -1,5 +1,6 @@
 import csv
 import re
+from pathlib import Path
 from datetime import date, datetime
 from datetime import timedelta
 import hashlib
@@ -71,10 +72,10 @@ def processRawTicket(rawTicket):
     arrivalAirportStr =  " ".join(arrivalAirportStrArr)
     arrivalAirportName = re.sub("[A|P]M(\+\d+)?", "", arrivalAirportStr)
 
-    flightID = hashlib.sha256((flightNumber + departureDate).encode())
+    flightID = hashlib.sha256((flightNumber + departureDate + departureTime + arrivalDate + arrivalTime + departAirportCode + arrivalAirportCode).encode())
     flightID = flightID.hexdigest()
 
-    ticketID = hashlib.sha256((flightNumber + departureDate + ticketDate).encode())
+    ticketID = hashlib.sha256((flightID + ticketDate).encode())
     ticketID = ticketID.hexdigest()
 
     result = {}
@@ -122,6 +123,18 @@ for data in dataArray:
         airportSet.add(processedData["arrivalAirport"][0])
     ticketWriter.writerow(processedData["ticket"])
 
+flightTable.close()
+airportTable.close()
+ticketTable.close()
+
 flights = pd.read_csv("../data/flight.csv")
-flights = flights.drop_duplicates()
-flights.to_csv("../data/flight_no_dup.csv",index=False)
+flights_no_dup = flights.drop_duplicates()
+if (flights.flight_id.count() != flights_no_dup.flight_id.count()):
+    print("Duplicate flight detected")
+    Path("../data/flight.csv").unlink(missing_ok=True)
+
+tickets = pd.read_csv("../data/ticket.csv")
+tickets_no_dup = tickets.drop_duplicates()
+if (tickets.ticket_id.count() != tickets_no_dup.ticket_id.count()):
+    print("Duplicate ticket detected")
+    Path("../data/ticket.csv").unlink(missing_ok=True)
