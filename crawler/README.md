@@ -30,6 +30,7 @@ python crawl.py
 ```
 ## Data processing
 Run the command to generate airport, flight and ticket csv. Make sure they do not currently exist in the data directory before running
+Also make sure flight_data.txt does not exist in current directory
 ```sh
 python processData.py
 ```
