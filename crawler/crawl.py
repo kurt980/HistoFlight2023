@@ -1,3 +1,4 @@
+from base64 import encode
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
@@ -71,7 +72,7 @@ def scrapeData(url):
         print('Page opened')
 
         buttons = driver.find_elements(By.XPATH, ".//button[contains(@aria-label, 'Flight details')]")
-        
+
         CLICK_INTERVAL += 0.2
         
     elements = driver.find_elements(By.XPATH, "//div[@role='main']//li[@class='pIav2d']")
