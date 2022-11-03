@@ -20,6 +20,18 @@ To deactivate from virtual environment, simply run
 deactivate
 ```
 
+## Config Change
+go to `service/db.py`
+
+and put in the correct address and credentials for the database
+
+```python
+db = Connection(
+    host = 'localhost',
+    user = 'root',
+    password = 'cs411047',
+)
+```
 ## Run Server
 Run the command
 ```sh
@@ -28,5 +40,7 @@ flask run
 
 ## Accessing API
 After the server is running, open the following URLs in your browser
+
 [airport](http://127.0.0.1:5000/api/airports)
+
 [flights](http://127.0.0.1:5000/api/flights)
