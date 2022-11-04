@@ -2,20 +2,20 @@ from flask import Blueprint, request, abort, jsonify
 from datetime import timedelta, date
 from service.db import db
 
-flight_bp = Blueprint("flight", __name__)
+ticket_bp = Blueprint("ticket", __name__)
 
 # use cursor and select database
 cursor = db.cursor()
 
 def get_column_names():
-    cursor.execute("select * from flight limit 1")
+    cursor.execute("select * from ticket limit 1")
     colNames = []
     for col in cursor.description:
         colNames.append(col[0])
     return colNames
 
-@flight_bp.route("/flights")
-def get_flights():
+@ticket_bp.route("/tickets")
+def get_tickets():
     colNames = get_column_names()
 
     queryCols = request.args.get("columns")
@@ -27,19 +27,19 @@ def get_flights():
             if col not in colNames:
                 return "Incorrect column names"
     
-    sql_command = "select " + queryCols + " from flight limit 1000"
+    sql_command = "select " + queryCols + " from ticket limit 1000"
 
     cursor.execute(sql_command)
     l = list(cursor.fetchall())
     result = []
-    for flight in l:
+    for ticket in l:
         cur = {}
-        for col in range(len(flight)):
-            if isinstance(flight[col], timedelta):
-                cur[cursor.description[col][0]] = str(flight[col])
-            elif isinstance(flight[col], date):
-                cur[cursor.description[col][0]] = flight[col].strftime("%Y-%m-%d")
+        for col in range(len(ticket)):
+            if isinstance(ticket[col], timedelta):
+                cur[cursor.description[col][0]] = str(ticket[col])
+            elif isinstance(ticket[col], date):
+                cur[cursor.description[col][0]] = ticket[col].strftime("%Y-%m-%d")
             else:
-                cur[cursor.description[col][0]] = flight[col]
+                cur[cursor.description[col][0]] = ticket[col]
         result.append(cur)
     return result
