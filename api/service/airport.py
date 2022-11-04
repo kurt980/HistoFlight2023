@@ -7,7 +7,7 @@ airport_bp = Blueprint("airport", __name__)
 cursor = db.cursor()
 
 def get_column_names():
-    cursor.execute("select * from airport limit 1")
+    cursor.execute("select * from Airport limit 1")
     colNames = []
     for col in cursor.description:
         colNames.append(col[0])
@@ -27,7 +27,7 @@ def get_airports():
             if col not in colNames:
                 return "Incorrect column names"
     
-    sql_command = "select " + queryCols + " from airport"
+    sql_command = "select " + queryCols + " from Airport"
 
     cursor.execute(sql_command)
     l = list(cursor.fetchall())

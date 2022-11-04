@@ -8,7 +8,7 @@ ticket_bp = Blueprint("ticket", __name__)
 cursor = db.cursor()
 
 def get_column_names():
-    cursor.execute("select * from ticket limit 1")
+    cursor.execute("select * from Ticket limit 1")
     colNames = []
     for col in cursor.description:
         colNames.append(col[0])
@@ -27,7 +27,7 @@ def get_tickets():
             if col not in colNames:
                 return "Incorrect column names"
     
-    sql_command = "select " + queryCols + " from ticket limit 1000"
+    sql_command = "select " + queryCols + " from Ticket limit 1000"
 
     cursor.execute(sql_command)
     l = list(cursor.fetchall())

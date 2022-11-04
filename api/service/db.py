@@ -1,7 +1,7 @@
 from pymysql import Connection
 
 db = Connection(
-    host = 'localhost',
+    host = 'IPaddress',
     user = 'root',
     password = 'cs411047',
 )
