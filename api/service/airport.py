@@ -6,13 +6,17 @@ airport_bp = Blueprint("airport", __name__)
 # use cursor and select database
 cursor = db.cursor()
 
-@airport_bp.route("/airports")
-def get_airports():
+def get_column_names():
     cursor.execute("select * from airport limit 1")
     colNames = []
     for col in cursor.description:
         colNames.append(col[0])
-    print(colNames)
+    return colNames
+
+@airport_bp.route("/airports")
+def get_airports():
+
+    colNames = get_column_names()
 
     queryCols = request.args.get("columns")
     print(queryCols)

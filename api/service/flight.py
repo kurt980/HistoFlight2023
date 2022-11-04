@@ -7,13 +7,16 @@ flight_bp = Blueprint("flight", __name__)
 # use cursor and select database
 cursor = db.cursor()
 
-@flight_bp.route("/flights")
-def get_flights():
+def get_column_names():
     cursor.execute("select * from flight limit 1")
     colNames = []
     for col in cursor.description:
         colNames.append(col[0])
-    print(colNames)
+    return colNames
+
+@flight_bp.route("/flights")
+def get_flights():
+    colNames = get_column_names()
 
     queryCols = request.args.get("columns")
     print(queryCols)
