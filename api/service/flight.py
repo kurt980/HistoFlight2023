@@ -1,4 +1,5 @@
 from flask import Blueprint, request, abort, jsonify
+from datetime import timedelta, date
 from service.db import db
 
 flight_bp = Blueprint("flight", __name__)
@@ -31,6 +32,11 @@ def get_flights():
     for airport in l:
         cur = {}
         for col in range(len(airport)):
-            cur[cursor.description[col][0]] = airport[col]
+            if isinstance(airport[col], timedelta):
+                cur[cursor.description[col][0]] = str(airport[col])
+            elif isinstance(airport[col], date):
+                cur[cursor.description[col][0]] = airport[col].strftime("%Y-%m-%d")
+            else:
+                cur[cursor.description[col][0]] = airport[col]
         result.append(cur)
     return result
