@@ -43,3 +43,34 @@ def get_flights():
                 cur[cursor.description[col][0]] = flight[col]
         result.append(cur)
     return result
+
+@flight_bp.route("/flight")
+def search_flight():
+    colNames = get_column_names()
+    for column in request.args.keys():
+        if column not in colNames:
+            return "Incorrect column names"
+
+    args = "where"
+    for column in request.args.keys():
+        args = args + " " + column + " = " + request.args.get(column) + " AND"
+    
+    if args.endswith(" AND"):
+        args = args[0:- 4]
+    sql_command = "select * from Flight " + args
+
+    cursor.execute(sql_command)
+
+    l = list(cursor.fetchall())
+    result = []
+    for flight in l:
+        cur = {}
+        for col in range(len(flight)):
+            if isinstance(flight[col], timedelta):
+                cur[cursor.description[col][0]] = str(flight[col])
+            elif isinstance(flight[col], date):
+                cur[cursor.description[col][0]] = flight[col].strftime("%Y-%m-%d")
+            else:
+                cur[cursor.description[col][0]] = flight[col]
+        result.append(cur)
+    return result
