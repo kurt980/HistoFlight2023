@@ -18,6 +18,9 @@ def get_comments():
 
     # colNames = get_column_names()
 
+    for input request.args.:
+
+
     queryAirline = request.args.get("airline")
     queryUser = request.args.get("user_name")
 
@@ -46,3 +49,17 @@ def get_comments():
             cur[cursor.description[col][0]] = comment[col]
         result.append(cur)
     return result
+
+@comment_bp.route("/comment", methods=['POST'])
+def add_comments():
+    qAirline = request.form.get('airline')
+    if qAirline == None:
+        return "Please enter a valid airline name"
+    qText = request.form.get('comment')
+    if qText == None:
+        return "Please enter a valid comment"
+
+    sql_command = "insert into Comment(user_name, airline, text) values (laka9," + qAirline, qComment + ")" 
+    print(request.form)
+    return request.form
+
