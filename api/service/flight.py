@@ -1,4 +1,4 @@
-from flask import Blueprint, request, abort, jsonify
+from flask import Blueprint, request
 from datetime import timedelta, date, datetime
 from service.db import db
 import hashlib
@@ -77,8 +77,9 @@ def search_flight():
         return "Incorrect input"
 
 
-def get_new_id():
-    return '1'
+def get_flight_by_ID(id):
+    sql_command = "select * from Flight where flight_id = '" + id + "'"
+    return query(sql_command)
 
 @flight_bp.route("/flight", methods=['POST'])
 def add_flight():
@@ -88,12 +89,15 @@ def add_flight():
         if request.form.get(colName) is None and colName != "flight_id":
             return "Missing " + colName
     body = request.form.copy()
-    
-    body["departure_date"] = datetime.strptime(body["departure_date"], "%Y-%m-%d").strftime("%Y-%m-%d")
-    body["arrival_date"] = datetime.strptime(body["arrival_date"], "%Y-%m-%d").strftime("%Y-%m-%d")
-    body["departure_time"] = datetime.strptime(body["departure_time"], "%I:%M").strftime("%H:%M")
-    body["arrival_time"] = datetime.strptime(body["arrival_time"], "%I:%M").strftime("%H:%M")
-    body["flight_id"] = hashlib.sha256((body["flight_number"] + body["departure_date"] + body["departure_time"] + body["arrival_date"] + body["arrival_time"] + body["departure_airport"] + body["arrival_airport"]).encode()).hexdigest()
+    try:
+        body["departure_date"] = datetime.strptime(body["departure_date"], "%Y-%m-%d").strftime("%Y-%m-%d")
+        body["arrival_date"] = datetime.strptime(body["arrival_date"], "%Y-%m-%d").strftime("%Y-%m-%d")
+        body["departure_time"] = datetime.strptime(body["departure_time"], "%I:%M").strftime("%H:%M")
+        body["arrival_time"] = datetime.strptime(body["arrival_time"], "%I:%M").strftime("%H:%M")
+        body["travel_time"] = str(datetime.strptime(body["arrival_time"], "%I:%M") - datetime.strptime(body["departure_time"], "%I:%M"))
+        body["flight_id"] = hashlib.sha256((body["flight_number"] + body["departure_date"] + body["departure_time"] + body["arrival_date"] + body["arrival_time"] + body["departure_airport"] + body["arrival_airport"]).encode()).hexdigest()
+    except:
+        return "Incorrect date or time format, please use YYYY-MM-DD and HH:MM"
 
     values = []
     for colName in colNames:
@@ -101,11 +105,14 @@ def add_flight():
 
     
     sql_command = "insert into Flight values('" + "','".join(values) + "')"
-    print("Inserting into MySQL")
-    print(sql_command)
-    cursor.execute(sql_command)
-    db.commit()
-    return request.form
+    try:
+        print("Inserting into MySQL")
+        print(sql_command)
+        cursor.execute(sql_command)
+        db.commit()
+        return get_flight_by_ID(body["flight_id"])
+    except:
+        return "Insert Failed"
 
 @flight_bp.route("/flight/<flight_id>", methods=['DELETE'])
 def remove_flight(flight_id):
