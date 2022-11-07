@@ -3,19 +3,19 @@
 ## Creating a Vue Application
 Prerequisite --- Install Node.js version 16.0 or higher
 
-## install Vue CLI
+## Install Vue CLI
 ```
 npm install -g @vue/cli
 # OR
 yarn global add @vue/cli
 ```
-## Create a project
+## Create a project (use UI preferable)
 ```
 vue create my-project
 # OR
 vue ui
 ```
-## Install vee-validate
+## Install vee-validate (add validation to forms)
 ```
 yarn add vee-validate
 # or
