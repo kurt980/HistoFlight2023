@@ -1,8 +1,25 @@
 # my_vue
 
-## Project setup
+## Creating a Vue Application
+Prerequisite --- Install Node.js version 16.0 or higher
+
+## install Vue CLI
 ```
-npm install
+npm install -g @vue/cli
+# OR
+yarn global add @vue/cli
+```
+## Create a project
+```
+vue create my-project
+# OR
+vue ui
+```
+## Install vee-validate
+```
+yarn add vee-validate
+# or
+npm i vee-validate --save
 ```
 
 ### Compiles and hot-reloads for development
