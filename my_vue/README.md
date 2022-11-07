@@ -1,7 +1,7 @@
 # my_vue
 
 ## Creating a Vue Application
-Prerequisite --- Install Node.js version 16.0 or higher
+Prerequisite --- Install [Node.js](https://nodejs.org/en/) version 16.0 or higher
 
 ## Install Vue CLI
 ```
