@@ -15,6 +15,8 @@ vue create my-project
 # OR
 vue ui
 ```
+Please add Vuetify in "Plugin" on yor UI
+
 ## Install vee-validate (add validation to forms)
 ```
 yarn add vee-validate
