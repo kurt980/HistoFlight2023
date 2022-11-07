@@ -4,7 +4,7 @@ from datetime import datetime, date, timedelta
 from pymysql import Connection
 
 conn = Connection(
-    host = 'youripaddress',
+    host = '34.67.249.196',
     user = 'root',
     password = 'cs411047',
 )
