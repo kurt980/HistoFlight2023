@@ -50,6 +50,7 @@ def get_comments():
         result.append(cur)
     return result
 
+
 @comment_bp.route("/comment", methods=['POST'])
 def add_comments():
     qAirline = request.form.get('airline')
@@ -62,4 +63,22 @@ def add_comments():
     sql_command = "insert into Comment(user_name, airline, text) values (laka9," + qAirline, qComment + ")" 
     print(request.form)
     return request.form
+
+
+#                  what to write here?
+@comment_bp.route("/delete", methods=['DELETE'])
+def delete_comments():
+    # qAirline = request.form.get('airline')
+    # if qAirline == None:
+    #     return "Please enter a valid airline name"
+    # qText = request.form.get('comment')
+    # if qText == None:
+    #     return "Please enter a valid comment"
+
+    qComment_id = request.form.get('comment_id')
+
+    sql_command = "delete from Comment where comment_id = " + comment_id + ")" 
+    print(request.form)
+    return request.form
+
 
