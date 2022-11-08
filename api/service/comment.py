@@ -42,7 +42,7 @@ def add_comments():
     return db.insert("Comment", body)
 
 # delete comment
-@comment_bp.route("/delete", methods=['DELETE'])
+@comment_bp.route("/comment/<comment_id>", methods=['DELETE'])
 def delete_comments(comment_id):
 
     db.delete("Comment", {"comment_id": comment_id})
