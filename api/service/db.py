@@ -150,3 +150,13 @@ class DB:
         """.format(departureDate, departureAirport, arrivalAirport, fromDate, departureDate, departureAirport, arrivalAirport)
 
         return self.execute(sqlCommand)
+
+    def getFlightAvgPrice(self, flight_id):
+        sqlCommand = """
+            SELECT avg(price) as avg_price
+            FROM Ticket JOIN Flight USING(flight_id)
+            WHERE flight_id = '{}'
+            GROUP BY flight_id
+        """.format(flight_id)
+
+        return self.execute(sqlCommand)
