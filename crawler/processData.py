@@ -85,13 +85,15 @@ def processRawTicket(rawTicket):
     result["ticket"] = (ticketID, flightID, ticketDate, "Economy", price)
     return result
 
-inF = open("flight_data.txt")
+dataPath = '../data/' + date.today().strftime(("%Y.%m.%d"))
+
+inF = open(dataPath + "/flight_data.txt")
 rawdata = inF.read()
 dataArray = rawdata.split("\n\nseperator\n\n")
 
-flightTable = open('../data/flight.csv', 'a')
-airportTable = open('../data/airport.csv', 'a')
-ticketTable = open('../data/ticket.csv', 'a')
+flightTable = open(dataPath + '/flight.csv', 'a')
+airportTable = open(dataPath + '/airport.csv', 'a')
+ticketTable = open(dataPath + '/ticket.csv', 'a')
 
 flightWriter = csv.writer(flightTable)
 airportWriter = csv.writer(airportTable)
@@ -127,14 +129,14 @@ flightTable.close()
 airportTable.close()
 ticketTable.close()
 
-flights = pd.read_csv("../data/flight.csv")
+flights = pd.read_csv(dataPath + "/flight.csv")
 flights_no_dup = flights.drop_duplicates()
 if (flights.flight_id.count() != flights_no_dup.flight_id.count()):
     print("Duplicate flight detected")
-    Path("../data/flight.csv").unlink(missing_ok=True)
+    Path(dataPath + "/flight.csv").unlink(missing_ok=True)
 
-tickets = pd.read_csv("../data/ticket.csv")
+tickets = pd.read_csv(dataPath + "/ticket.csv")
 tickets_no_dup = tickets.drop_duplicates()
 if (tickets.ticket_id.count() != tickets_no_dup.ticket_id.count()):
     print("Duplicate ticket detected")
-    Path("../data/ticket.csv").unlink(missing_ok=True)
+    Path(dataPath + "/ticket.csv").unlink(missing_ok=True)
