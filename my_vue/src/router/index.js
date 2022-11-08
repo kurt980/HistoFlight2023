@@ -4,6 +4,7 @@ import Home from '../views/Home'
 import About from '../views/About'
 import Comments from '../views/Comments'
 import NotFound from '../views/NotFound'
+import Results from '../views/Results.vue'
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,10 @@ const routes = [
   {
     path: '/comments',
     component: Comments
+  },
+  {
+    path: '/results',
+    component: Results
   },
   {
     path: '/*',
