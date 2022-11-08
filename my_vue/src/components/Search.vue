@@ -82,9 +82,9 @@ retdate.setDate(retdate.getDate() + 5);
 function changeTimeZone(addDate = 0){
     var d = new Date();
     d.setDate(d.getDate() + addDate);
-    var year = d.toLocaleString("default", { year: "numeric", timeZone: 'America/Chicago' });
-    var month = d.toLocaleString("default", { month: "2-digit", timeZone: 'America/Chicago' });
-    var day = d.toLocaleString("default", { day: "2-digit", timeZone: 'America/Chicago' });
+    var year = d.toLocaleString("en-US", { year: "numeric", timeZone: 'America/Chicago' });
+    var month = d.toLocaleString("en-US", { month: "2-digit", timeZone: 'America/Chicago' });
+    var day = d.toLocaleString("en-US", { day: "2-digit", timeZone: 'America/Chicago' });
 
     var formattedDate = year + "-" + month + "-" + day;
     return formattedDate
