@@ -21,6 +21,7 @@ flightProps = ['nonstop', 'one way']
 classOptions = ['economy']
 cities = ['ORD', 'LAX', 'SFO']
 baseUrl = 'https://www.google.com/travel/flights?q=Flights'
+dataPath = '../data/' + today.strftime(("%Y.%m.%d"))
 
 def clickButton(button):
     try:
@@ -98,7 +99,7 @@ for departCity in cities:
 
                 data = scrapeData(url)
                 
-                outF = open("flight_data.txt", "a")
+                outF = open(dataPath + "/flight_data.txt", "a")
         
                 print('Writing data to file')
 
