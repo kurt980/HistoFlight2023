@@ -19,4 +19,4 @@ def get_airports():
             if col not in colNames:
                 return "Incorrect column names"
 
-    return db.query("Airport")
+    return db.search("Airport")

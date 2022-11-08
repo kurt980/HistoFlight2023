@@ -34,10 +34,10 @@ class DB:
             result.append(cur)
         return result
     
-    # Query the database from a table and return all results
-    # query("Flight", {flight_number, "AA 2330"})
+    # Search the database from a table and return all results
+    # search("Flight", {flight_number, "AA 2330"})
     # If no paramSet is specified, return all rows
-    def query(self, table, paramSet={}):
+    def search(self, table, paramSet={}):
         colNames = self.get_column_names(table)
 
         db = self.connect_to_db()
@@ -91,7 +91,7 @@ class DB:
             cursor.execute(sql_command)
             db.commit()
             db.close()
-            return self.query(table, paramSet)
+            return self.search(table, paramSet)
         except:
             return []
 

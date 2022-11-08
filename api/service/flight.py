@@ -23,7 +23,7 @@ def get_flights():
             if col not in colNames:
                 return "Incorrect column names"
 
-    return db.query("Flight", {'limit': 1000})
+    return db.search("Flight", {'limit': 1000})
 
 # Example usage:
 # GET http://127.0.0.1:5000/api/flight?departure_airport=‘LAX‘&arrival_airport=‘ORD‘&airline_code='AA'
@@ -34,13 +34,13 @@ def search_flight():
         if column not in colNames:
             return "Incorrect column names from flask"
     try:
-        return db.query("Flight", request.args)
+        return db.search("Flight", request.args)
     except:
         return "Incorrect input"
 
 def get_flight_by_ID(id):
     try:
-        return db.query("Flight", {'flight_id': id})
+        return db.search("Flight", {'flight_id': id})
     except:
         return "Incorrect input"
 

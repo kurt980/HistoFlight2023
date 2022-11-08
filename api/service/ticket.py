@@ -19,4 +19,4 @@ def get_tickets():
             if col not in colNames:
                 return "Incorrect column names"
 
-    return db.query('Ticket', {'limit': 1000})
+    return db.search('Ticket', {'limit': 1000})
