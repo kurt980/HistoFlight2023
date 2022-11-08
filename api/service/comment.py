@@ -47,4 +47,4 @@ def delete_comments(comment_id):
 
     db.delete("Comment", {"comment_id": comment_id})
 
-    return "Comment id" + comment_id + "deleted"
+    return "Comment id " + comment_id + " deleted"
