@@ -23,7 +23,7 @@
                         sm="4"
                     >
                         <v-select
-                            v-model="departureCity"
+                            v-model="arrivalCity"
                             :items="cities"
                             label="Where To?"
                             outlined
