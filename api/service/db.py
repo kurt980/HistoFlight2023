@@ -4,43 +4,44 @@ import config
 
 class DB:
     # Connect to DB using config file
-    def connect_to_db(self):
+    def connectToDB(self):
         db = connect(**config.DB_CONFIG)
         db.select_db("project")
         return db
 
     # Get all the columns of a table
-    def get_column_names(self, table):
+    def getColumnNames(self, table):
         sqlCommand = "SELECT * FROM " + table + " LIMIT 1"
         return self.execute(sqlCommand)[0].keys()
 
     # Execute the sql command and return any results if there is any
     def execute(self, sql):
         print(sql)
-        db = self.connect_to_db()
+        db = self.connectToDB()
         cursor = db.cursor()
         cursor.execute(sql)
         l = list(cursor.fetchall())
         result = []
-        for flight in l:
+        for row in l:
             cur = {}
-            for col in range(len(flight)):
-                if isinstance(flight[col], timedelta):
-                    cur[cursor.description[col][0]] = str(flight[col])
-                elif isinstance(flight[col], date):
-                    cur[cursor.description[col][0]] = flight[col].strftime("%Y-%m-%d")
+            for col in range(len(row)):
+                if isinstance(row[col], timedelta):
+                    cur[cursor.description[col][0]] = str(row[col])
+                elif isinstance(row[col], date):
+                    cur[cursor.description[col][0]] = row[col].strftime("%Y-%m-%d")
                 else:
-                    cur[cursor.description[col][0]] = flight[col]
+                    cur[cursor.description[col][0]] = row[col]
             result.append(cur)
+        db.commit()
+        db.close()
         return result
     
     # Search the database from a table and return all results
     # search("Flight", {flight_number, "AA 2330"})
     # If no paramSet is specified, return all rows
     def search(self, table, paramSet={}):
-        colNames = self.get_column_names(table)
+        colNames = self.getColumnNames(table)
 
-        db = self.connect_to_db()
         try:
             limitArgs = " LIMIT " + str(paramSet.pop('limit'))
         except:
@@ -63,18 +64,16 @@ class DB:
             if queryArgs.endswith(" AND"):
                 queryArgs = queryArgs[0:- 4]
         
-        sql_command = "SELECT * FROM " + table + queryArgs + limitArgs
-        result = self.execute(sql_command)
-        db.close()
+        sqlCommand = "SELECT * FROM " + table + queryArgs + limitArgs
+        result = self.execute(sqlCommand)
+
         return result
 
     # Insert a value into a table in the database and return the inserted row
     # insert("Flight", {flight_number, "AA 2330"})
     def insert(self, table, paramSet):
-        colNames = self.get_column_names(table)
+        colNames = self.getColumnNames(table)
 
-        db = self.connect_to_db()
-        cursor = db.cursor()
         for colName in colNames:
             if paramSet[colName] is None:
                 return "Missing " + colName
@@ -84,13 +83,10 @@ class DB:
             values.append(paramSet[colName])
 
         
-        sql_command = "INSERT INTO " + table + " VALUES('" + "','".join(values) + "')"
+        sqlCommand = "INSERT INTO " + table + " VALUES('" + "','".join(values) + "')"
         try:
             print("Inserting into MySQL")
-            print(sql_command)
-            cursor.execute(sql_command)
-            db.commit()
-            db.close()
+            self.execute(sqlCommand)
             return self.search(table, paramSet)
         except:
             return []
@@ -99,8 +95,6 @@ class DB:
     # and return whether the operation was successful
     # delete("Flight", {flight_number, "AA 2330"})
     def delete(self, table, paramSet):
-        db = self.connect_to_db()
-        cursor = db.cursor()
 
         args = "WHERE"
         for column, value in paramSet.items():
@@ -109,12 +103,30 @@ class DB:
         if args.endswith(" AND"):
             args = args[0:- 4]
 
-        sql_command = "DELETE FROM " + table + " " + args
-        print("Deleting from MySQL")
-        print(sql_command)
+        sqlCommand = "DELETE FROM " + table + " " + args
         try:
-            cursor.execute(sql_command)
-            db.commit()
+            print("Deleting from MySQL")
+            self.execute(sqlCommand)
             return True
         except:
             return False
+
+    def getTicketsCheaperThanAvg(self, departureAirport, arrivalAirport, departureDate):
+        departureDateObject = datetime.strptime(departureDate, "%Y-%m-%d")
+        fromDate = (departureDateObject - timedelta(days=4)).strftime("%Y-%m-%d")
+        sqlCommand = """
+            SELECT *
+            FROM Ticket JOIN Flight USING(flight_id)
+            WHERE departure_date = '{}'
+            AND departure_airport = '{}'
+            AND arrival_airport = '{}'
+            AND price <=
+                (SELECT AVG(price)    
+                FROM Ticket JOIN Flight USING(flight_id)
+                WHERE departure_date BETWEEN '{}' AND '{}'
+                AND departure_airport = '{}'
+                AND arrival_airport = '{}'
+                GROUP BY departure_airport, arrival_airport)
+        """.format(departureDate, departureAirport, arrivalAirport, fromDate, departureDate, departureAirport, arrivalAirport)
+
+        return self.execute(sqlCommand)

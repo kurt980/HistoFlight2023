@@ -12,41 +12,24 @@ db = DB()
 # GET http://127.0.0.1:5000/api/flights
 @flight_bp.route("/flights")
 def get_flights():
-    colNames = db.get_column_names("Flight")
-
-    queryCols = request.args.get("columns")
-    print(queryCols)
-    if (queryCols == None):
-        queryCols = "*"
-    else:
-        for col in queryCols.split(","):
-            if col not in colNames:
-                return "Incorrect column names"
-
     return db.search("Flight", {'limit': 1000})
 
 # Example usage:
-# GET http://127.0.0.1:5000/api/flight?departure_airport=‘LAX‘&arrival_airport=‘ORD‘&airline_code='AA'
+# GET http://127.0.0.1:5000/api/flight?departure_airport=LAX&arrival_airport=ORD&airline_code=AA
 @flight_bp.route("/flight")
 def search_flight():
-    colNames = db.get_column_names("Flight")
+    colNames = db.getColumnNames("Flight")
     for column in request.args.keys():
         if column not in colNames:
-            return "Incorrect column names from flask"
+            return "Incorrect column names"
     try:
         return db.search("Flight", request.args)
     except:
         return "Incorrect input"
 
-def get_flight_by_ID(id):
-    try:
-        return db.search("Flight", {'flight_id': id})
-    except:
-        return "Incorrect input"
-
 @flight_bp.route("/flight", methods=['POST'])
 def add_flight():
-    colNames = db.get_column_names("Flight")
+    colNames = db.getColumnNames("Flight")
 
     for colName in colNames:
         if request.form.get(colName) is None and colName != "flight_id":
@@ -65,8 +48,36 @@ def add_flight():
 
     return db.insert("Flight", body)
 
+@flight_bp.route("/flight/<flight_id>", methods=['GET'])
+def get_flight_by_ID(flight_id):
+    try:
+        return db.query("Flight", {'flight_id': flight_id})
+    except:
+        return "Incorrect input"
+
+def get_flight_by_IDs(ids):
+    flights = []
+    for id in ids:
+        flights.extend(get_flight_by_ID(id))
+    return flights
+
 @flight_bp.route("/flight/<flight_id>", methods=['DELETE'])
 def remove_flight(flight_id):
     db.delete("Flight", {"flight_id": flight_id})
 
     return "Deleted"
+
+@flight_bp.route("/getFlightsCheaperThanAvg")
+def get_flights_Cheaper_than_avg():
+    colNames = db.getColumnNames("Flight")
+    for column in request.args.keys():
+        if column not in colNames:
+            return "Incorrect column names"
+    
+
+    try:
+        tickets = db.getTicketsCheaperThanAvg(request.args.get("departure_airport"), request.args.get("arrival_airport"), request.args.get("departure_date"))
+        flightIDs = [x['flight_id'] for x in tickets]
+        return get_flight_by_IDs(flightIDs)
+    except:
+        return "Incorrect input"

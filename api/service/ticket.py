@@ -8,15 +8,4 @@ db = DB()
 
 @ticket_bp.route("/tickets")
 def get_tickets():
-    colNames = db.get_column_names("Ticket")
-
-    queryCols = request.args.get("columns")
-    print(queryCols)
-    if (queryCols == None):
-        queryCols = "*"
-    else:
-        for col in queryCols.split(","):
-            if col not in colNames:
-                return "Incorrect column names"
-
     return db.search('Ticket', {'limit': 1000})
