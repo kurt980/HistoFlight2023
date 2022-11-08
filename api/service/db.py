@@ -37,7 +37,7 @@ class DB:
         return result
     
     # Search the database from a table and return all results
-    # search("Flight", {flight_number, "AA 2330"})
+    # search("Flight", {flight_number: "AA 2330"})
     # If no paramSet is specified, return all rows
     def search(self, table, paramSet={}):
         colNames = self.getColumnNames(table)
@@ -54,15 +54,8 @@ class DB:
         if len(paramSet) == 0:
             queryArgs = ''
         else:
-            queryArgs = " WHERE"
-            for column, value in paramSet.items():
-                if column.lower() == "limit":
-                    limit = value
-                    continue
-                queryArgs = queryArgs + " " + column + " = '" + value + "' AND"
-            
-            if queryArgs.endswith(" AND"):
-                queryArgs = queryArgs[0:- 4]
+            queryArgs = " WHERE" + " " + self.formArgString(paramSet, " AND ")
+
         
         sqlCommand = "SELECT * FROM " + table + queryArgs + limitArgs
         result = self.execute(sqlCommand)
@@ -70,7 +63,7 @@ class DB:
         return result
 
     # Insert a value into a table in the database and return the inserted row
-    # insert("Flight", {flight_number, "AA 2330"})
+    # insert("Flight", {flight_number: "AA 2330"})
     def insert(self, table, paramSet):
         colNames = self.getColumnNames(table)
 
@@ -93,15 +86,10 @@ class DB:
 
     # Delete a value of a table from the database
     # and return whether the operation was successful
-    # delete("Flight", {flight_number, "AA 2330"})
+    # delete("Flight", {flight_number: "AA 2330"})
     def delete(self, table, paramSet):
 
-        args = "WHERE"
-        for column, value in paramSet.items():
-            args = args + " " + column + " = '" + value + "' AND"
-        
-        if args.endswith(" AND"):
-            args = args[0:- 4]
+        args = "WHERE" + " " + self.formArgString(paramSet, " AND ")
 
         sqlCommand = "DELETE FROM " + table + " " + args
         try:
@@ -110,6 +98,38 @@ class DB:
             return True
         except:
             return False
+    
+    # Method and join dict with seperator
+    # formArgString({a: "1", b: "2"}, ",")
+    # returns a = 1, b = 2
+    def formArgString(self, paramSet, seperator):
+        args = ""
+        for column, value in paramSet.items():
+            args = args + column + " = '" + value + "'" + seperator
+        
+        if args.endswith(seperator):
+            args = args[0:-len(seperator)]
+        return args
+
+    # Update a value of a table from the database
+    # and return whether the operation was successful
+    # update("Flight", {flight_number: "AA 2330"})
+    def update(self, table, paramSet, newParamSet):
+        setString = "SET" + " " + self.formArgString(newParamSet, ", ")
+        whereString = "WHERE" + " " + self.formArgString(paramSet, " AND ")
+
+        sqlCommand = "UPDATE " + table + " " + setString + " " + whereString
+        
+        try:
+            results = self.search(table, paramSet)
+            for result in results:
+                for key, value in newParamSet.items():
+                    result[key] = value
+            print("Updating from MySQL")
+            self.execute(sqlCommand)
+            return results
+        except:
+            return "Update Failed"
 
     def getTicketsCheaperThanAvg(self, departureAirport, arrivalAirport, departureDate):
         departureDateObject = datetime.strptime(departureDate, "%Y-%m-%d")
@@ -128,5 +148,15 @@ class DB:
                 AND arrival_airport = '{}'
                 GROUP BY departure_airport, arrival_airport)
         """.format(departureDate, departureAirport, arrivalAirport, fromDate, departureDate, departureAirport, arrivalAirport)
+
+        return self.execute(sqlCommand)
+
+    def getFlightAvgPrice(self, flight_id):
+        sqlCommand = """
+            SELECT avg(price) as avg_price
+            FROM Ticket JOIN Flight USING(flight_id)
+            WHERE flight_id = '{}'
+            GROUP BY flight_id
+        """.format(flight_id)
 
         return self.execute(sqlCommand)
