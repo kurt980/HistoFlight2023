@@ -1,84 +1,50 @@
 from flask import Blueprint, request, abort, jsonify
-from service.db import db
+from service.db import DB
+
+db = DB()
 
 comment_bp = Blueprint("comment", __name__)
 
-# use cursor and select database
-cursor = db.cursor()
 
-# def get_column_names():
-#     cursor.execute("select * from Comment limit 1")
-#     colNames = []
-#     for col in cursor.description:
-#         colNames.append(col[0])
-#     return colNames
-
+# get all comments
 @comment_bp.route("/comments")
 def get_comments():
 
-    # colNames = get_column_names()
+    return db.search('Comment')
 
-    for input request.args.:
+# search for certain comments
+@comment_bp.route("/comment")
+def search_comment():
 
+    colNames = db.getColumnNames("Comment")
+    for column in request.args.keys():
+        if column not in colNames:
+            return "Incorrect column names"
 
-    queryAirline = request.args.get("airline")
-    queryUser = request.args.get("user_name")
-
-    print(request.args)
-
-    where_clause = ""
-
-    if (queryAirline != None and queryUser != None):
-        where_clause = " where airline =" + queryAirline + " and user_name =" + queryUser
-    elif (queryAirline == None and queryUser != None):
-        where_clause = " where user_name =" + queryUser
-    elif (queryAirline != None and queryUser == None):
-        where_clause = " where airline =" + queryAirline
-    else:
-        sql_command = ""
-
-    sql_command = "select * from Comment" + where_clause
-
-
-    cursor.execute(sql_command)
-    l = list(cursor.fetchall())
-    result = []
-    for comment in l:
-        cur = {}
-        for col in range(len(comment)):
-            cur[cursor.description[col][0]] = comment[col]
-        result.append(cur)
-    return result
-
-
+    try:
+        return db.search('Comment', request.args)
+    except:
+        return "Incorrect input"
+  
+# add a comment
 @comment_bp.route("/comment", methods=['POST'])
 def add_comments():
-    qAirline = request.form.get('airline')
-    if qAirline == None:
-        return "Please enter a valid airline name"
-    qText = request.form.get('comment')
-    if qText == None:
-        return "Please enter a valid comment"
 
-    sql_command = "insert into Comment(user_name, airline, text) values (laka9," + qAirline, qComment + ")" 
-    print(request.form)
-    return request.form
+    colNames = db.getColumnNames("Comment")
 
+    for colName in colNames:
+        if request.form.get(colName) is None and colName != "comment_id":
+            return "Missing " + colName
 
-#                  what to write here?
+    body = request.form.copy()
+
+    # print(request.form)
+    return db.insert("Comment", body)
+
+# delete comment
 @comment_bp.route("/delete", methods=['DELETE'])
-def delete_comments():
-    # qAirline = request.form.get('airline')
-    # if qAirline == None:
-    #     return "Please enter a valid airline name"
-    # qText = request.form.get('comment')
-    # if qText == None:
-    #     return "Please enter a valid comment"
+def delete_comments(comment_id):
 
-    qComment_id = request.form.get('comment_id')
+    db.delete("Comment", {"comment_id": comment_id})
 
-    sql_command = "delete from Comment where comment_id = " + comment_id + ")" 
-    print(request.form)
-    return request.form
-
-
+    return "Comment id" + comment_id + "deleted"
