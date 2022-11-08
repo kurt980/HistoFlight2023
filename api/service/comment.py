@@ -22,7 +22,7 @@ def search_comment():
             return "Incorrect column names"
 
     try:
-        return db.search('Comment', request.args)
+        return db.search('Comment', request.args.copy())
     except:
         return "Incorrect input"
   
