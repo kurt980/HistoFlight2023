@@ -48,3 +48,9 @@ def delete_comments(comment_id):
     db.delete("Comment", {"comment_id": comment_id})
 
     return "Comment id " + comment_id + " deleted"
+
+# update comment
+@comment_bp.route("/comment/<comment_id>", methods=['PUT'])
+def update_comments(comment_id):
+    body = request.form.copy()
+    return db.update("Comment", {"comment_id": comment_id}, body)
