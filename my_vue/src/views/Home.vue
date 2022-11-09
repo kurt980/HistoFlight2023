@@ -1,6 +1,6 @@
 <template>
   <v-content>
-    <hero/>
+    <Hero/>
     <br>
     <SearchBar/>
   </v-content>
