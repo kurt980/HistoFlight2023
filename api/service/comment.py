@@ -1,5 +1,7 @@
 from flask import Blueprint, request, abort, jsonify
 from service.db import DB
+from utils import sha256
+from datetime import datetime
 
 db = DB()
 
@@ -37,8 +39,12 @@ def add_comments():
             return "Missing " + colName
 
     body = request.form.copy()
-
-    # print(request.form)
+    if "comment_id" not in body.keys():
+        s = ""
+        for value in body.values():
+            s += value
+        body["comment_id"] = sha256(s + str(datetime.now()))
+    
     return db.insert("Comment", body)
 
 # delete comment

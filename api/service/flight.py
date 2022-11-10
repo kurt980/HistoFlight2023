@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from datetime import timedelta, date, datetime
 from service.db import DB
-import hashlib
+from utils import sha256
 
 flight_bp = Blueprint("flight", __name__)
 
@@ -42,7 +42,7 @@ def add_flight():
         body["departure_time"] = datetime.strptime(body["departure_time"], "%I:%M").strftime("%H:%M")
         body["arrival_time"] = datetime.strptime(body["arrival_time"], "%I:%M").strftime("%H:%M")
         body["travel_time"] = str(datetime.strptime(body["arrival_time"], "%I:%M") - datetime.strptime(body["departure_time"], "%I:%M"))
-        body["flight_id"] = hashlib.sha256((body["flight_number"] + body["departure_date"] + body["departure_time"] + body["arrival_date"] + body["arrival_time"] + body["departure_airport"] + body["arrival_airport"]).encode()).hexdigest()
+        body["flight_id"] = sha256(body["flight_number"] + body["departure_date"] + body["departure_time"] + body["arrival_date"] + body["arrival_time"] + body["departure_airport"] + body["arrival_airport"])
     except:
         return "Incorrect date or time format, please use YYYY-MM-DD and HH:MM"
 

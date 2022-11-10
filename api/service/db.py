@@ -76,7 +76,7 @@ class DB:
             values.append(paramSet[colName])
 
         
-        sqlCommand = "INSERT INTO " + table + " VALUES('" + "','".join(values) + "')"
+        sqlCommand = "INSERT INTO " + table + " VALUES(\"" + "\",\"".join(values) + "\")"
         try:
             print("Inserting into MySQL")
             self.execute(sqlCommand)
@@ -105,7 +105,7 @@ class DB:
     def formArgString(self, paramSet, seperator):
         args = ""
         for column, value in paramSet.items():
-            args = args + column + " = '" + value + "'" + seperator
+            args = args + column + " = \"" + value + "\"" + seperator
         
         if args.endswith(seperator):
             args = args[0:-len(seperator)]
