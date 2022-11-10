@@ -17,7 +17,7 @@
 
     CREATE TABLE Comment (
 
-        comment_id INTEGER PRIMARY KEY,
+        comment_id VARCHAR(100) PRIMARY KEY,
 
         text TEXT,
 
