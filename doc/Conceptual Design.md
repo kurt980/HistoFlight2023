@@ -48,7 +48,7 @@
 &emsp;&emsp;  lastname: &emsp;&ensp;&nbsp;&emsp;&emsp;&nbsp;     varchar(50)<br>
 
 **Comment**( <br>
-&emsp;&emsp;  comment_id:    &emsp;&emsp;&ensp;     integer &emsp;[PK]<br>
+&emsp;&emsp;  comment_id:    &emsp;&emsp;&ensp;     varchar(100) &emsp;[PK]<br>
 &emsp;&emsp;  text:    &emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;&nbsp;     varchar(100) <br>
 &emsp;&emsp;  user_name:    &emsp;&emsp;&emsp;&nbsp;     varchar(100) &emsp;[FK to User.user_name]<br>
 &emsp;&emsp;  airline: &emsp;&ensp;&nbsp;&emsp;&emsp;&emsp;&ensp;     varchar(100)&emsp;&nbsp;[FK to Airline.IATA]<br>
