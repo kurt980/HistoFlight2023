@@ -125,7 +125,7 @@
 ### Show at least 1000 rows
 ![image](./images/rows_over1000.png)
 
-### Advanced Query 1: get number of flights to a destination given a range of dates
+### Advanced Query 1: Compute the average price for a specific flight
     -- Compute the average price for a specific flight
 
     SELECT avg(price) as avg_price
@@ -140,7 +140,7 @@
     <img src="./images/query1.png" width=60% height=60%>
 </p>
 
-### Advanced Query 2: get daily average flight price for each destination in a range of dates
+### Advanced Query 2: Find flights cheaper than average
     -- Find the average price for tickets bought on the last date of our available data, on flights departing from LAX to SFO
     from 2022-11-8 to 2022-11-12, and find all the flight information for flights that are cheaper than this average price
 
