@@ -11,7 +11,7 @@
                         <v-select
                             v-model="departureCity"
                             :items="cities"
-                            label="Leave from"
+                            label="Departure City"
                             outlined
                             required
                             >
@@ -36,16 +36,18 @@
                         cols="4"
                         sm="2"
                     >
+                        <p>Departure Date</p>
                         <input type="date" class="calender" v-model="departureDate">
                     </v-col>
                     <v-col
                         class="d-flex"
                         cols="4"
                         sm="2"
-                    >
+                    >   
+                        <p>Return Date</p>
                         <input type="date" class="calender" v-model="returnDate">
                     </v-col>
-                    
+
                 </v-row>
                 <v-row>
                     <v-col class="searchbtn">
@@ -58,6 +60,10 @@
                             </v-icon> 
                         </v-btn>
                     </v-col>
+                    <v-checkbox
+                        v-model="avgPrice"
+                        label="Find Tickets lower than Avg price"
+                        ></v-checkbox>
                 </v-row>
             </v-container>
         </v-form>
@@ -67,13 +73,15 @@
 
 <script>
 import { ref } from "vue";
+// import { EventBus } from "../event-bus";
+
 let input = ref("");
-const cities = ["Chicago", "Los Angeles", "New York City"]
-function filterCity() {
-  return cities.filter((city) =>
-    city.toLowerCase().includes(input.value.toLowerCase())
-  );
-}
+// const cities = ["Chicago", "Los Angeles", "New York City"]
+// function filterCity() {
+//   return cities.filter((city) =>
+//     city.toLowerCase().includes(input.value.toLowerCase())
+//   );
+// }
 
 var ddate = changeTimeZone();
 var retdate = new Date();
@@ -94,10 +102,12 @@ function changeTimeZone(addDate = 0){
     export default{
         data(){
             return {
+            userInput: {},
             departureCity: null,
             arrivalCity: null,
             departureDate : changeTimeZone(),
             returnDate : changeTimeZone(5),
+            avgPrice: 0,
             cities: [
                 'Chicago',
                 'Los Angeles',
@@ -107,7 +117,23 @@ function changeTimeZone(addDate = 0){
         },
         methods:{
             goToResults: function(){
-                this.$router.push('/results');
+                this.urlParams();
+                console.log(this.userInput);
+                this.$router.push({
+                   path: '/results',
+                   query:{
+                    items: this.userInput
+                   }
+                });
+            },
+            urlParams: function(){
+                this.userInput = {
+                    departureCity: this.departureCity, 
+                    arrivalCity: this.arrivalCity,
+                    departureDate: this.departureDate,
+                    returnDate: this.returnDate,
+                    avgPrice: this.avgPrice,
+                    };
             }
         }
         
