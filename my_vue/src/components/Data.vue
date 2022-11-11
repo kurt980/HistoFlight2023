@@ -64,7 +64,7 @@ export default{
               this.getTicketPrice(resp.data);
           });
         }else{
-          axios.get(url+'/api/flight?arrival_airport='+aAbv+'&departure_airport='+dAbv+'&limit=10').then(resp => {
+          axios.get(url+'/api/flight?arrival_airport='+aAbv+'&departure_airport='+dAbv+'&departure_date='+departDate).then(resp => {
               this.getTicketPrice(resp.data);
           });
         }
