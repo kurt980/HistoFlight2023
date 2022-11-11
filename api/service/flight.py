@@ -30,12 +30,15 @@ def search_flight():
 @flight_bp.route("/flight", methods=['POST'])
 def add_flight():
     colNames = db.getColumnNames("Flight")
-
+    try:
+        body = request.json.copy()
+    except:
+        body = request.form.copy()
+    
     for colName in colNames:
-        if request.form.get(colName) is None and colName != "flight_id":
+        if body.get(colName) is None and colName != "flight_id":
             return "Missing " + colName
     
-    body = request.form.copy()
     try:
         body["departure_date"] = datetime.strptime(body["departure_date"], "%Y-%m-%d").strftime("%Y-%m-%d")
         body["arrival_date"] = datetime.strptime(body["arrival_date"], "%Y-%m-%d").strftime("%Y-%m-%d")
@@ -50,7 +53,11 @@ def add_flight():
 
 @flight_bp.route("/flight/<flight_id>", methods=['PUT'])
 def update_flight(flight_id):
-    body = request.form.copy()
+    try:
+        body = request.json.copy()
+    except:
+        body = request.form.copy()
+    
     return db.update("Flight", {"flight_id": flight_id}, body)
 
 @flight_bp.route("/flight/<flight_id>", methods=['GET'])
