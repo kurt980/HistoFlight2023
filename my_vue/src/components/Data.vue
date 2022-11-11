@@ -52,8 +52,8 @@ export default{
     },
     methods: {
       getData: function(){
-        var aAbv = this.cityAbv[this.$route.query.items.arrivalCity]
-        var dAbv = this.cityAbv[this.$route.query.items.departureCity]
+        var aAbv = this.cityAbv[this.$route.query.items.arrivalCity] || "ORD";
+        var dAbv = this.cityAbv[this.$route.query.items.departureCity] || "LAX";
         var departDate = this.$route.query.items.departureDate;
         if (this.$route.query.items.avgPrice == true){
             axios.get(url+'/api/getFlightsCheaperThanAvg?arrival_airport='+aAbv+'&departure_airport='+dAbv+'&departure_date='+departDate).then(resp => {
