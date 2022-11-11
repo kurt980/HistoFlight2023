@@ -219,18 +219,19 @@ import axios from "axios"
       },
 
       deleteItem (item) {
-        console.log(item)
+        this.editedIndex = this.user_comments.indexOf(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
-
-        axios.delete('http://127.0.0.1:5000/api/comment/'+ item.comment_id)
-        .then(response=>{
-          console.log(response);
-        })
       },
 
       deleteItemConfirm () {
-        this.user_comments.splice(this.editedIndex, 1)
+        let editedIndex = this.editedIndex
+        let item = this.user_comments[editedIndex]
+        axios.delete('http://127.0.0.1:5000/api/comment/'+ item.comment_id)
+        .then(response=>{
+          console.log(response);
+          this.user_comments.splice(editedIndex, 1)
+        })
         this.closeDelete()
       },
 
