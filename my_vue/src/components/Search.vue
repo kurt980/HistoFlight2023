@@ -39,14 +39,6 @@
                         <p>Departure Date</p>
                         <input type="date" class="calender" v-model="departureDate">
                     </v-col>
-                    <v-col
-                        class="d-flex"
-                        cols="4"
-                        sm="2"
-                    >   
-                        <p>Return Date</p>
-                        <input type="date" class="calender" v-model="returnDate">
-                    </v-col>
 
                 </v-row>
                 <v-row>
@@ -72,8 +64,6 @@
 </template>
 
 <script>
-import { ref } from "vue";
-
 
 var retdate = new Date();
 retdate.setDate(retdate.getDate() + 5);
@@ -97,7 +87,6 @@ function changeTimeZone(addDate = 0){
             departureCity: null,
             arrivalCity: null,
             departureDate : changeTimeZone(),
-            returnDate : changeTimeZone(5),
             avgPrice: 0,
             cities: [
                 'Chicago',
@@ -122,7 +111,6 @@ function changeTimeZone(addDate = 0){
                     departureCity: this.departureCity, 
                     arrivalCity: this.arrivalCity,
                     departureDate: this.departureDate,
-                    returnDate: this.returnDate,
                     avgPrice: this.avgPrice,
                     };
             }
