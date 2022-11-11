@@ -126,19 +126,15 @@
 ![image](./images/rows_over1000.png)
 
 ### Advanced Query 1: get number of flights to a destination given a range of dates
-    -- compute number of flights (from a certain airport) to a certain airport name given a range of dates; provides accessibility for user
+    -- Compute the average price for a specific flight
 
-    SELECT COUNT(Flight.flight_number) AS Visits, Airport.airport_name AS Airport
-
-    FROM Flight JOIN Airport ON Flight.arrival_airport = Airport.IATA
-
-    WHERE Flight.arrival_date BETWEEN '2022-10-20' AND '2022-10-24'
+    SELECT avg(price) as avg_price
+            
+    FROM Ticket JOIN Flight USING(flight_id)
     
-    AND Airport.IATA = "LAX"
-
-    GROUP BY Airport.IATA
-
-    ORDER BY Visits DESC;
+    WHERE flight_id = '001a745f5f204000e30c3cb73ea5943b0fcd9b8aa10680a4f65ea0f7ec371e95'
+    
+    GROUP BY flight_id
 
 <p align="center">
     <img src="./images/query1.png" width=60% height=60%>
@@ -147,31 +143,23 @@
 ### Advanced Query 2: get daily average flight price for each destination in a range of dates
     -- find all the flight information for ORD to LAX on 2022-10-23 whose price less than the average price in nearest 4 days(2022-10-21 to 2022-10-24)
 
-    SELECT flight_number, airline_code, departure_date, CLASS, PRICE
-    
-    FROM Ticket JOIN Flight USING(flight_id)
-    
-    WHERE departure_date = "2022-10-23"
-    
-    AND departure_airport = "ORD"
-    
-    AND arrival_airport = "LAX"
-    
+    SELECT *
+    FROM Ticket JOIN Flight USING(flight_id), (
+        SELECT MAX(purchase_date) as date
+        FROM Ticket
+    ) as t
+    WHERE departure_date = '2022-11-10'
+    AND purchase_date = t.date
+    AND departure_airport = 'LAX'
+    AND arrival_airport = 'SFO'
     AND price <=
-    
-                (SELECT AVG(price)
-                
-                FROM Ticket JOIN Flight USING(flight_id)
-                
-                WHERE departure_date BETWEEN "2022-10-21" AND "2022-10-24"
-                
-                AND departure_airport = "ORD"
-                
-                AND arrival_airport = "LAX"
-                
-                GROUP BY departure_airport, arrival_airport)
-                
-    LIMIT 15
+        (SELECT AVG(price)    
+        FROM Ticket JOIN Flight USING(flight_id)
+        WHERE purchase_date = t.date
+        AND departure_date BETWEEN '2022-11-8' AND '2022-11-12'
+        AND departure_airport = 'LAX'
+        AND arrival_airport = 'SFO'
+        GROUP BY departure_airport, arrival_airport)
     
 
 <p align="center">
