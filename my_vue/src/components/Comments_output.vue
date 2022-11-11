@@ -4,7 +4,7 @@
         <v-data-table
     :headers="headers"
     :items="user_comments"
-    sort-by="airline"
+    :search="search"
     class="elevation-1"
   >
     <template v-slot:top>
@@ -18,11 +18,20 @@
           vertical
         ></v-divider>
         <v-spacer></v-spacer>
+
+        <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
+
         <v-dialog
           v-model="dialog"
           max-width="500px"
         >
-          <template v-slot:activator="{ on, attrs }">
+          <!-- <template v-slot:activator="{ on, attrs }">
             <v-btn
               color="primary"
               dark
@@ -32,7 +41,7 @@
             >
               New Item
             </v-btn>
-          </template>
+          </template> -->
           <v-card>
             <v-card-title>
               <span class="text-h5">{{ formTitle }}</span>
@@ -141,11 +150,15 @@
 
 
 <script>
+
+import axios from "axios"
+
   export default {
     name: 'Comments_output',
     data: () => ({
       dialog: false,
       dialogDelete: false,
+      search: '',
       headers: [
         {
           text: 'User_name',
@@ -153,7 +166,7 @@
           sortable: false,
           value: 'user_name',
         },
-        { text: 'Airline', value: 'airline' },
+        { text: 'Airline', value: 'airline' , sortable: false},
         { text: 'Comments', value: 'text' },
         { text: 'Actions', value: 'actions', sortable: false },
       ],
@@ -193,12 +206,10 @@
     methods: {
       getData: function(){
           axios.get('http://127.0.0.1:5000/api/comments').then(resp => {
-          this.fd = resp.data; });
+          this.user_comments = resp.data; });
       },
       initialize () {
         this.getData()
-        this.user_comments = this.fd
-        // console.log("ppppppp",this.fd)
       },
 
       editItem (item) {
@@ -208,9 +219,14 @@
       },
 
       deleteItem (item) {
-        this.editedIndex = this.user_comments.indexOf(item)
+        console.log(item)
         this.editedItem = Object.assign({}, item)
         this.dialogDelete = true
+
+        axios.delete('http://127.0.0.1:5000/api/comment/'+ item.comment_id)
+        .then(response=>{
+          console.log(response);
+        })
       },
 
       deleteItemConfirm () {
@@ -235,8 +251,24 @@
       },
 
       save () {
+        console.log(this.editedItem)
+        let editedIndex = this.editedIndex
+        let editedItem = this.editedItem
         if (this.editedIndex > -1) {
-          Object.assign(this.user_comments[this.editedIndex], this.editedItem)
+
+          let item = this.user_comments[this.editedIndex]
+          axios.put('http://127.0.0.1:5000/api/comment/'+ item.comment_id,{
+            text:this.editedItem.comment,
+            user_name:this.editedItem.name,
+            airline:this.editedItem.airline
+          }).then(
+            response=>{
+              console.log(response)
+              if (response.status === 200) {
+                Object.assign(this.user_comments[editedIndex], editedItem)
+              }
+            }
+          )
         } else {
           this.user_comments.push(this.editedItem)
         }

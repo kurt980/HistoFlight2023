@@ -68,6 +68,7 @@
         label="Comment"
         :rules="rules"
         :value="value"
+        name="Comment"
         v-model="comments"
         ></v-textarea>
 
@@ -113,7 +114,7 @@
 
   import { required, digits, email, max, regex } from 'vee-validate/dist/rules'
   import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
-
+  import axios from "axios"
   setInteractionMode('eager')
 
   extend('digits', {
@@ -151,33 +152,43 @@
       name: '',
       email: '',
       select: null,
-      items: [
-        'United Air Lines',
-        'American Airlines',
-        'US Airways',
-        'Frontier Airlines',
-        'JetBlue Airways',
-        'Skywest Airlines',
-        'Alaska Airlines',
-        'Spirit Air Lines',
-        'Southwest Airlines',
-        'Delta Air Lines',
-        'Atlantic Southeast Airlines',
-        'Hawaiian Airlines',
-        'American Eagle Airlines',
-        'Virgin America',
-        'Air Canada',
-        'Allegiant Air',
-        'WestJet',
-        'JSX'
-      ],
+      airlineMap:[],
+      items:[],
+      comments: '',
       checkbox: null,
     }),
-
+    created () {
+      this.initialize()
+    },
     methods: {
-      submit () {
-        this.$refs.observer.validate()
+      getData: function(){
+          axios.get('http://127.0.0.1:5000/api/airlines').then(resp => {
+          this.airlineMap = resp.data; 
+          this.items = this.airlineMap.map((airline)=>{
+              return airline.airline_name
+          })
+        });
       },
+      initialize () {
+        // console.log("Initialize")
+        this.getData()
+      },
+      submit () {
+        if(this.$refs.observer.validate()){
+          let IATA = this.airlineMap.filter((airline)=>{ 
+            return airline.airline_name === this.select})[0].IATA
+          let body = {
+            text:this.comments,
+            user_name:this.name,
+            airline:IATA
+          }
+          // console.log(body)
+          axios.post('http://127.0.0.1:5000/api/comment', body)
+            .then(response=>{
+              console.log(response);
+            })
+        }},
+      
       clear () {
         this.name = ''
         this.email = ''

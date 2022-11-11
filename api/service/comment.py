@@ -35,10 +35,10 @@ def add_comments():
     colNames = db.getColumnNames("Comment")
 
     for colName in colNames:
-        if request.form.get(colName) is None and colName != "comment_id":
+        if request.json.get(colName) is None and colName != "comment_id":
             return "Missing " + colName
 
-    body = request.form.copy()
+    body = request.json.copy()
     if "comment_id" not in body.keys():
         s = ""
         for value in body.values():
@@ -58,5 +58,5 @@ def delete_comments(comment_id):
 # update comment
 @comment_bp.route("/comment/<comment_id>", methods=['PUT'])
 def update_comments(comment_id):
-    body = request.form.copy()
+    body = request.json.copy()
     return db.update("Comment", {"comment_id": comment_id}, body)
