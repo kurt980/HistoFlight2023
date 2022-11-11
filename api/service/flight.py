@@ -1,7 +1,7 @@
 from flask import Blueprint, request
 from datetime import timedelta, date, datetime
 from service.db import DB
-import hashlib
+from utils import sha256
 
 flight_bp = Blueprint("flight", __name__)
 
@@ -20,38 +20,50 @@ def get_flights():
 def search_flight():
     colNames = db.getColumnNames("Flight")
     for column in request.args.keys():
-        if column not in colNames:
+        if column not in colNames and column != "limit":
             return "Incorrect column names"
     try:
-        return db.search("Flight", request.args)
+        return db.search("Flight", request.args.copy())
     except:
         return "Incorrect input"
 
 @flight_bp.route("/flight", methods=['POST'])
 def add_flight():
     colNames = db.getColumnNames("Flight")
-
+    try:
+        body = request.json.copy()
+    except:
+        body = request.form.copy()
+    
     for colName in colNames:
-        if request.form.get(colName) is None and colName != "flight_id":
+        if body.get(colName) is None and colName != "flight_id":
             return "Missing " + colName
     
-    body = request.form.copy()
     try:
         body["departure_date"] = datetime.strptime(body["departure_date"], "%Y-%m-%d").strftime("%Y-%m-%d")
         body["arrival_date"] = datetime.strptime(body["arrival_date"], "%Y-%m-%d").strftime("%Y-%m-%d")
         body["departure_time"] = datetime.strptime(body["departure_time"], "%I:%M").strftime("%H:%M")
         body["arrival_time"] = datetime.strptime(body["arrival_time"], "%I:%M").strftime("%H:%M")
         body["travel_time"] = str(datetime.strptime(body["arrival_time"], "%I:%M") - datetime.strptime(body["departure_time"], "%I:%M"))
-        body["flight_id"] = hashlib.sha256((body["flight_number"] + body["departure_date"] + body["departure_time"] + body["arrival_date"] + body["arrival_time"] + body["departure_airport"] + body["arrival_airport"]).encode()).hexdigest()
+        body["flight_id"] = sha256(body["flight_number"] + body["departure_date"] + body["departure_time"] + body["arrival_date"] + body["arrival_time"] + body["departure_airport"] + body["arrival_airport"])
     except:
         return "Incorrect date or time format, please use YYYY-MM-DD and HH:MM"
 
     return db.insert("Flight", body)
 
+@flight_bp.route("/flight/<flight_id>", methods=['PUT'])
+def update_flight(flight_id):
+    try:
+        body = request.json.copy()
+    except:
+        body = request.form.copy()
+    
+    return db.update("Flight", {"flight_id": flight_id}, body)
+
 @flight_bp.route("/flight/<flight_id>", methods=['GET'])
 def get_flight_by_ID(flight_id):
     try:
-        return db.query("Flight", {'flight_id': flight_id})
+        return db.search("Flight", {'flight_id': flight_id})
     except:
         return "Incorrect input"
 
@@ -67,6 +79,7 @@ def remove_flight(flight_id):
 
     return "Deleted"
 
+# /api/getFlightsCheaperThanAvg?departure_airport=SFO&arrival_airport=ORD&departure_date=2022-11-6
 @flight_bp.route("/getFlightsCheaperThanAvg")
 def get_flights_Cheaper_than_avg():
     colNames = db.getColumnNames("Flight")
@@ -81,3 +94,8 @@ def get_flights_Cheaper_than_avg():
         return get_flight_by_IDs(flightIDs)
     except:
         return "Incorrect input"
+
+# /api/getFlightAvgPrice/000c5e71991b00f7476973473ea02d681632af69bdb5261d20917c4b8dc28ad8
+@flight_bp.route("/getFlightAvgPrice/<flight_id>")
+def get_flight_avg_price(flight_id):
+    return db.getFlightAvgPrice(flight_id)
