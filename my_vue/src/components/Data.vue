@@ -7,8 +7,10 @@
                     <th>Flights ({{flightData.length}})</th>
                     <th>Departure City</th>
                     <th>Arrival City</th>
-                    <th>Travel Time</th>
                     <th>Departure Date</th>
+                    <th>Departure Time</th>
+                    <th>Arrival Date</th>
+                    <th>Arrival Time</th>
                     <th>Price</th>
                 </tr>
                 </thead>
@@ -20,8 +22,10 @@
                     <td>{{ flight.flight_number }}</td>
                     <td>{{ flight.departure_airport }}</td>
                     <td>{{ flight.arrival_airport }}</td>
-                    <td>{{ flight.travel_time }}</td>
                     <td>{{ flight.departure_date }}</td>
+                    <td>{{ flight.departure_time }}</td>
+                    <td>{{ flight.arrival_date }}</td>
+                    <td>{{ flight.arrival_time }}</td>
                     <td>${{ flight.avg_Price }}</td>
                 </tr>
                 </tbody>
@@ -71,7 +75,7 @@ export default{
         for (let i = 0; i < b.length; i++) {
           var flight_id = b[i]["flight_id"];
           axios.get(url+'/api/getFlightAvgPrice/'+flight_id).then(resp => {
-            b[i]["avg_Price"] = resp.data[0]["avg_price"].toString();
+            b[i]["avg_Price"] = resp.data[0]["avg_price"].toFixed(2);
             this.flightData.push(b[i])
           });
         }
