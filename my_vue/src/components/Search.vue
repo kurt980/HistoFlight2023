@@ -73,17 +73,8 @@
 
 <script>
 import { ref } from "vue";
-// import { EventBus } from "../event-bus";
 
-let input = ref("");
-// const cities = ["Chicago", "Los Angeles", "New York City"]
-// function filterCity() {
-//   return cities.filter((city) =>
-//     city.toLowerCase().includes(input.value.toLowerCase())
-//   );
-// }
 
-var ddate = changeTimeZone();
 var retdate = new Date();
 retdate.setDate(retdate.getDate() + 5);
 
@@ -111,7 +102,7 @@ function changeTimeZone(addDate = 0){
             cities: [
                 'Chicago',
                 'Los Angeles',
-                'Chicago'
+                'San Francisco'
             ],
             }
         },
