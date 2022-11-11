@@ -186,6 +186,7 @@
           axios.post('http://127.0.0.1:5000/api/comment', body)
             .then(response=>{
               console.log(response);
+              this.$router.go()
             })
         }},
       
