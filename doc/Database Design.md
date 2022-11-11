@@ -141,7 +141,7 @@
 </p>
 
 ### Advanced Query 2: get daily average flight price for each destination in a range of dates
-    -- find all the flight information for ORD to LAX on 2022-10-23 whose price less than the average price in nearest 4 days(2022-10-21 to 2022-10-24)
+    -- Find the average price for tickets bought on the last date of our available data, on flights departing from LAX to SFO from 2022-11-8 to 2022-11-12, and find all the flight information for flights that are cheaper than this average price
 
     SELECT *
     FROM Ticket JOIN Flight USING(flight_id), (
