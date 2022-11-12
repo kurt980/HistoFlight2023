@@ -1,19 +1,16 @@
-from base64 import encode
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.options import Options
-from datetime import date
-from datetime import timedelta
-
+import os
 import time
-
+from datetime import date, timedelta
 from urllib.parse import quote
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service as ChromeService
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+from webdriver_manager.chrome import ChromeDriverManager
 
 today = date.today()
 daysAhead = 60
@@ -85,6 +82,8 @@ def scrapeData(url):
     driver.quit()
     return data
 
+if not os.path.isdir(dataPath):
+   os.makedirs(dataPath)
 
 for departCity in cities:
     for arrivalCity in cities:

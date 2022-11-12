@@ -1,10 +1,11 @@
 import csv
-import re
-from pathlib import Path
-from datetime import date, datetime
-from datetime import timedelta
 import hashlib
+import re
+from datetime import date, datetime, timedelta
+from pathlib import Path
+
 import pandas as pd
+
 
 def processRawTicket(rawTicket):
     ticketDates = re.findall("Ticket Date: \d{1,2}-\d{1,2}-\d{4}", rawTicket)
