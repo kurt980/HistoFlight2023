@@ -11,8 +11,8 @@ class DB:
 
     # Get all the columns of a table
     def getColumnNames(self, table):
-        sqlCommand = "SELECT * FROM " + table + " LIMIT 1"
-        return self.execute(sqlCommand)[0].keys()
+        sqlCommand = "SHOW columns FROM " + table
+        return [x['Field'] for x in self.execute(sqlCommand)]
 
     # Execute the sql command and return any results if there is any
     def execute(self, sql):
