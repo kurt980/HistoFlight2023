@@ -70,7 +70,7 @@ def signup_user():
 
     if 'first_name' not in body.keys():
         body['first_name'] = ""
-    if 'first_name' not in body.keys():
+    if 'last_name' not in body.keys():
         body['last_name'] = ""
     
     colNames = db.getColumnNames("User")
