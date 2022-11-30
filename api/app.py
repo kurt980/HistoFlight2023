@@ -6,6 +6,7 @@ from service.flight import flight_bp
 from service.ticket import ticket_bp
 from service.comment import comment_bp
 from service.airline import airline_bp
+from service.auth import auth_bp
 
 app = Flask(__name__)
 CORS(app)
@@ -15,3 +16,4 @@ app.register_blueprint(flight_bp, url_prefix="/api/")
 app.register_blueprint(ticket_bp, url_prefix="/api/")
 app.register_blueprint(comment_bp, url_prefix="/api/")
 app.register_blueprint(airline_bp, url_prefix="/api/")
+app.register_blueprint(auth_bp, url_prefix="/auth")

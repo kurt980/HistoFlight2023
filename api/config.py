@@ -3,3 +3,4 @@ DB_CONFIG = {
     'user': 'root',
     'password': 'cs411047'
 }
+AUTH_KEY = 'cs411047'
