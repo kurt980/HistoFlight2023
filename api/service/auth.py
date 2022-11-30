@@ -28,7 +28,7 @@ def token_required(func):
         if not token:
             return jsonify({'message': 'a valid token is missing'})
         try:
-            data = jwt.decode(token, "secret", algorithms=["HS256"])
+            data = jwt.decode(token, AUTH_KEY, algorithms=["HS256"])
             current_user = db.search(
                 "User", {"user_name": data['user_name']})[0]
         except jwt.ExpiredSignatureError:
