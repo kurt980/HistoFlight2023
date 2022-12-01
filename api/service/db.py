@@ -131,31 +131,34 @@ class DB:
         except:
             return "Update Failed"
 
-    def getTicketsCheaperThanAvg(self, departureAirport, arrivalAirport, departureDate):
-        departureDateObject = datetime.strptime(departureDate, "%Y-%m-%d")
-        fromDate = (departureDateObject - timedelta(days=2)).strftime("%Y-%m-%d")
-        toDate = (departureDateObject + timedelta(days=2)).strftime("%Y-%m-%d")
-        sqlCommand = """
-            SELECT *
-            FROM Ticket JOIN Flight USING(flight_id), (
-                SELECT MAX(purchase_date) as date
-                FROM Ticket
-            ) as t
-            WHERE departure_date = '{}'
-            AND purchase_date = t.date
-            AND departure_airport = '{}'
-            AND arrival_airport = '{}'
-            AND price <=
-                (SELECT AVG(price)    
-                FROM Ticket JOIN Flight USING(flight_id)
-                WHERE purchase_date = t.date
-                AND departure_date BETWEEN '{}' AND '{}'
-                AND departure_airport = '{}'
-                AND arrival_airport = '{}'
-                GROUP BY departure_airport, arrival_airport)
-        """.format(departureDate, departureAirport, arrivalAirport, fromDate, toDate, departureAirport, arrivalAirport)
-
+    def getFlightsCheaperThanAvg(self, departureAirport, arrivalAirport, departureDate):
+        sqlCommand = "call getFlightsCheaperThanAvg('{}', '{}', '{}')".format(departureAirport, arrivalAirport, departureDate)
         return self.execute(sqlCommand)
+    # def getTicketsCheaperThanAvg(self, departureAirport, arrivalAirport, departureDate):
+    #     departureDateObject = datetime.strptime(departureDate, "%Y-%m-%d")
+    #     fromDate = (departureDateObject - timedelta(days=2)).strftime("%Y-%m-%d")
+    #     toDate = (departureDateObject + timedelta(days=2)).strftime("%Y-%m-%d")
+    #     sqlCommand = """
+    #         SELECT *
+    #         FROM Ticket JOIN Flight USING(flight_id), (
+    #             SELECT MAX(purchase_date) as date
+    #             FROM Ticket
+    #         ) as t
+    #         WHERE departure_date = '{}'
+    #         AND purchase_date = t.date
+    #         AND departure_airport = '{}'
+    #         AND arrival_airport = '{}'
+    #         AND price <=
+    #             (SELECT AVG(price)    
+    #             FROM Ticket JOIN Flight USING(flight_id)
+    #             WHERE purchase_date = t.date
+    #             AND departure_date BETWEEN '{}' AND '{}'
+    #             AND departure_airport = '{}'
+    #             AND arrival_airport = '{}'
+    #             GROUP BY departure_airport, arrival_airport)
+    #     """.format(departureDate, departureAirport, arrivalAirport, fromDate, toDate, departureAirport, arrivalAirport)
+
+    #     return self.execute(sqlCommand)
 
     def getFlightAvgPrice(self, flight_id):
         sqlCommand = """
