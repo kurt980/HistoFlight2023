@@ -10,6 +10,13 @@ db = DB()
 def get_tickets():
     return db.search('Ticket', {'limit': 1000})
 
-@ticket_bp.route("/ticket/<flight_id>")
-def get_tickets_by_flight_id(flight_id):
-    return db.search('Ticket', {'flight_id': flight_id})
+@ticket_bp.route("/ticket")
+def search_tickets():
+    colNames = db.getColumnNames("Ticket")
+    for column in request.args.keys():
+        if column not in colNames and column != "limit":
+            return "Incorrect column names"
+    try:
+        return db.search("Ticket", request.args.copy())
+    except:
+        return "Incorrect input"
