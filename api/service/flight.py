@@ -89,9 +89,8 @@ def get_flights_Cheaper_than_avg():
     
 
     try:
-        tickets = db.getTicketsCheaperThanAvg(request.args.get("departure_airport"), request.args.get("arrival_airport"), request.args.get("departure_date"))
-        flightIDs = [x['flight_id'] for x in tickets]
-        return get_flight_by_IDs(flightIDs)
+        tickets = db.getFlightsCheaperThanAvg(request.args.get("departure_airport"), request.args.get("arrival_airport"), request.args.get("departure_date"))
+        return tickets
     except:
         return "Incorrect input"
 
