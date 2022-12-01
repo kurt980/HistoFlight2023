@@ -9,3 +9,7 @@ db = DB()
 @ticket_bp.route("/tickets")
 def get_tickets():
     return db.search('Ticket', {'limit': 1000})
+
+@ticket_bp.route("/ticket/<flight_id>")
+def get_tickets_by_flight_id(flight_id):
+    return db.search('Ticket', {'flight_id': flight_id})
