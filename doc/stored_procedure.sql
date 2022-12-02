@@ -24,12 +24,16 @@ CREATE PROCEDURE getFlightsCheaperThanAvg(
         
         -- declare cursor
         DECLARE exit_loop BOOLEAN DEFAULT FALSE;
-        
+        -- if user input date is ealier than the latest purchase date on Ticket, then will only look at purchase results on the input date
         DECLARE custCur CURSOR FOR (SELECT flight_id, flight_number, airline_code, departure_time, arrival_date, arrival_time, travel_time, price
 									FROM Ticket JOIN Flight USING(flight_id), (
-										SELECT MAX(purchase_date) as date
+										SELECT LEAST(departureDate - INTERVAL 1 DAY, t0.maxdate) AS date
+                                        FROM 
+                                        (SELECT MAX(purchase_date) AS maxdate
 										FROM Ticket
-										) as t
+										)
+                                        as t0)
+                                        as t
 									WHERE departure_date = departureDate
 									AND purchase_date = t.date
 									AND departure_airport = departureAirport
