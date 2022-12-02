@@ -166,21 +166,54 @@ export default {
       }
 
     },
-    changeImgSource(flightNumber) {
-      // var UALogo = require("../assets/image/UA.jpg")
-      // var AALogo = require("../assets/image/AA.jpg")
-      // var NKLogo = require("../assets/image/spirit.jpg")
-      // var img = ""
-      // var company = flightNumber.substr(0, 2)
-      // // console.log(company)
-      // if (company == "UA"){
-      //   img = UALogo
-      //  }else if (company == "AA"){
-      //   img = AALogo
-      // } else if (company == "NK"){
-      //   img = NKLogo
-      // }
-      // return img
+    changeImgSource(flightNumber){
+      var UALogo = require("../assets/image/UA.jpg")
+      var AALogo = require("../assets/image/AA.jpg")
+      var NKLogo = require("../assets/image/spirit.jpg")
+      var ASLogo = require("../assets/image/AS.jpg")
+      var WNLogo = require("../assets/image/WN.jpg")
+      var F9Logo = require("../assets/image/F9.jpg")
+      var G4Logo = require("../assets/image/G4.jpg")
+      var DLLogo = require("../assets/image/DL.jpg")
+      var VXLogo = require("../assets/image/VX.jpg")
+      var B6Logo = require("../assets/image/B6.jpg")
+      var OOLogo = require("../assets/image/OO.jpg")
+      var ACLogo = require("../assets/image/AC.jpg")
+      var WSLogo = require("../assets/image/WS.jpg")
+      var EVLogo = require("../assets/image/EV.jpg")
+      var img = ""
+      var company = flightNumber.substr(0, 2)
+      console.log(company)
+      if (company == "UA"){
+        img = UALogo
+      } else if (company == "AA"){
+        img = AALogo
+      } else if (company == "NK"){
+        img = NKLogo
+      } else if (company == "AS"){
+        img = ASLogo
+      } else if (company == "WN"){
+        img = WNLogo
+      } else if (company == "F9"){
+        img = F9Logo
+      } else if (company == "G4"){
+        img = G4Logo
+      } else if (company == "DL"){
+        img = DLLogo
+      } else if (company == "VX"){
+        img = VXLogo
+      } else if (company == "B6"){
+        img = B6Logo
+      } else if (company == "OO"){
+        img = OOLogo
+      } else if (company == "AC"){
+        img = ACLogo
+      } else if (company == "WS"){
+        img = WSLogo
+      } else if (company == "EV"){
+        img = EVLogo
+      }
+      return img
     },
     createChartData(flight_id) {
       var d = []
