@@ -4,6 +4,8 @@
       item-key="flight_number" @item-expanded="onExpand" show-expand class="table">
 
       <template v-slot:item.time="{ item }">{{ item.departure_time }} - {{ item.arrival_time }}</template>
+      <template v-slot:item.flight_number="{ item }">{{ item.flight_number }}</template>
+
       <template v-slot:item.avg_price="{ item }">
           ${{ item.avg_price }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           <v-icon v-if="item.is_cheap==1" color="yellow" >fas fa-star</v-icon>
@@ -72,8 +74,8 @@ export default {
       },
       singleExpand: false,
       tableHeader: [
-        // {text: "Flight Number",align: 'start',sortable: false, value:'flight_number'},
-        { text: "Logo", align: 'start', sortable: false, value: 'logo' },
+        { text: "", align: 'start', sortable: false, value: 'logo' },
+        { text: "",sortable: false, value:'flight_number'},
         { text: "", sortable: false, value: "time" },
         // {text: "Departure Airport", value:'departure_airport'},
         // {text: "Arrival Airport", value:'arrival_airport'},
