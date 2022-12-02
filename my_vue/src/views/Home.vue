@@ -11,7 +11,7 @@
 
 
 import Hero from '../components/Hero.vue'
-import SearchBar from '../components/Search.vue'
+import SearchBar from '../components/Flight_Search.vue'
 export default {
   name: 'Home',
   components: { 
