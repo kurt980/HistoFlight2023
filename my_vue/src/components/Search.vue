@@ -33,10 +33,16 @@
                     </v-col>
                     <v-col
                         class="d-flex"
-                        cols="4"
-                        sm="2"
+                        cols="3"
+                        sm="1"
                     >
                         <p>Departure Date</p>
+                    </v-col>
+                    <v-col
+                        class="d-flex"
+                        cols="3"
+                        sm="2"
+                    >
                         <input type="date" class="calender" v-model="departureDate">
                     </v-col>
 

@@ -32,13 +32,13 @@
       <template v-slot:expanded-item="{ item }">
         <!-- {{content}} -->
         <td>
-          <br></br>
+          <br/>
           <v-icon>mdi-seat-legroom-normal</v-icon>Average Legroom
-          <br></br>
+          <br/>
           <v-icon>mdi-signal-variant</v-icon>Free wifi available
-          <br></br>
+          <br/>
           <v-icon>mdi-power-plug-outline</v-icon>In-seat power outlet
-          <br></br>
+          <br>
           <v-icon>mdi-cellphone-nfc</v-icon>Stream media to your device
         </td>
         <td>
