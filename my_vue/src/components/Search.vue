@@ -52,10 +52,10 @@
                             </v-icon> 
                         </v-btn>
                     </v-col>
-                    <v-checkbox
+                    <!-- <v-checkbox
                         v-model="avgPrice"
                         label="Find Tickets lower than Avg price"
-                        ></v-checkbox>
+                        ></v-checkbox> -->
                 </v-row>
             </v-container>
         </v-form>
@@ -87,7 +87,7 @@ function changeTimeZone(addDate = 0){
             departureCity: null,
             arrivalCity: null,
             departureDate : changeTimeZone(),
-            avgPrice: 0,
+            // avgPrice: 0,
             cities: [
                 'Chicago',
                 'Los Angeles',
@@ -111,7 +111,7 @@ function changeTimeZone(addDate = 0){
                     departureCity: this.departureCity, 
                     arrivalCity: this.arrivalCity,
                     departureDate: this.departureDate,
-                    avgPrice: this.avgPrice,
+                    // avgPrice: this.avgPrice,
                     };
             }
         }

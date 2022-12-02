@@ -16,7 +16,7 @@
         <p>{{ item.departure_airport }} - {{ item.arrival_airport }}</p>
       </template>
 
-      <template v-slot:item.one_way>Nonstop</template>
+      <!-- <template v-slot:item.one_way>Nonstop</template> -->
 
       <template v-slot:top>
         <v-toolbar flat>
@@ -78,7 +78,7 @@ export default {
         // {text: "Departure Airport", value:'departure_airport'},
         // {text: "Arrival Airport", value:'arrival_airport'},
         { text: "", sortable: false, value: 'travel_time' },
-        { text: "", sortable: false, value: 'one_way' },
+        // { text: "", sortable: false, value: 'one_way' },
         { text: "", sortable: false, value: "avg_price" },
         { text: '', value: 'data-table-expand' }
       ],
