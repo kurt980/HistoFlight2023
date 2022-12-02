@@ -1,6 +1,6 @@
 -- Censor Trigger (New Version, Currently in use)
 Delimiter //
-CREATE TRIGGER censor
+CREATE TRIGGER censor_insert
  BEFORE INSERT ON Comment FOR EACH ROW
   BEGIN
 	-- declare bad word variable

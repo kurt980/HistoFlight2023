@@ -7,9 +7,9 @@
       <template v-slot:item.flight_number="{ item }">{{ item.flight_number }}</template>
 
       <template v-slot:item.avg_price="{ item }">
-          ${{ item.avg_price }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <v-icon v-if="item.is_cheap==1" color="yellow" >fas fa-star</v-icon>
-        </template>
+        ${{ item.avg_price }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <v-icon v-if="item.is_cheap == 1" color="yellow">fas fa-star</v-icon>
+      </template>
       <template v-slot:item.logo="{ item }"><img :src="changeImgSource(item.flight_number)"
           style="width:50px;height:50px;"></template>
 
@@ -33,16 +33,18 @@
         <!-- {{content}} -->
         <td>
           <br></br>
-            <v-icon>mdi-seat-legroom-normal</v-icon>Average Legroom
-            <br></br>
-            <v-icon>mdi-signal-variant</v-icon>Free wifi available
-            <br></br>
-            <v-icon>mdi-power-plug-outline</v-icon>In-seat power outlet
-            <br></br>
-            <v-icon>mdi-cellphone-nfc</v-icon>Stream media to your device
+          <v-icon>mdi-seat-legroom-normal</v-icon>Average Legroom
+          <br></br>
+          <v-icon>mdi-signal-variant</v-icon>Free wifi available
+          <br></br>
+          <v-icon>mdi-power-plug-outline</v-icon>In-seat power outlet
+          <br></br>
+          <v-icon>mdi-cellphone-nfc</v-icon>Stream media to your device
         </td>
         <td>
-          <canvas id="myChart" width="400" height="400"></canvas>
+
+          <canvas id="myChart" width="400" max_height="100"></canvas>
+
         </td>
 
       </template>
@@ -75,7 +77,7 @@ export default {
       singleExpand: false,
       tableHeader: [
         { text: "", align: 'start', sortable: false, value: 'logo' },
-        { text: "",sortable: false, value:'flight_number'},
+        { text: "", sortable: false, value: 'flight_number' },
         { text: "", sortable: false, value: "time" },
         // {text: "Departure Airport", value:'departure_airport'},
         // {text: "Arrival Airport", value:'arrival_airport'},
@@ -146,10 +148,10 @@ export default {
       var aAbv = this.cityAbv[this.$route.query.items.arrivalCity] || "ORD";
       var dAbv = this.cityAbv[this.$route.query.items.departureCity] || "LAX";
       var departDate = this.$route.query.items.departureDate;
-      
-      axios.get(url+'/api/getFlightsCheaperThanAvg?arrival_airport='+aAbv+'&departure_airport='+dAbv+'&departure_date='+departDate).then(resp => {
-          this.getTicketPrice(resp.data);
-          this.createChartData(resp.data);
+
+      axios.get(url + '/api/getFlightsCheaperThanAvg?arrival_airport=' + aAbv + '&departure_airport=' + dAbv + '&departure_date=' + departDate).then(resp => {
+        this.getTicketPrice(resp.data);
+        this.createChartData(resp.data);
       });
 
     },
@@ -168,7 +170,7 @@ export default {
       }
 
     },
-    changeImgSource(flightNumber){
+    changeImgSource(flightNumber) {
       var UALogo = require("../assets/image/UA.jpg")
       var AALogo = require("../assets/image/AA.jpg")
       var NKLogo = require("../assets/image/spirit.jpg")
@@ -183,37 +185,40 @@ export default {
       var ACLogo = require("../assets/image/AC.jpg")
       var WSLogo = require("../assets/image/WS.jpg")
       var EVLogo = require("../assets/image/EV.jpg")
+      var NKLogo = require("../assets/image/NK.jpg")
       var img = ""
       var company = flightNumber.substr(0, 2)
       console.log(company)
-      if (company == "UA"){
+      if (company == "UA") {
         img = UALogo
-      } else if (company == "AA"){
+      } else if (company == "AA") {
         img = AALogo
-      } else if (company == "NK"){
+      } else if (company == "NK") {
         img = NKLogo
-      } else if (company == "AS"){
+      } else if (company == "AS") {
         img = ASLogo
-      } else if (company == "WN"){
+      } else if (company == "WN") {
         img = WNLogo
-      } else if (company == "F9"){
+      } else if (company == "F9") {
         img = F9Logo
-      } else if (company == "G4"){
+      } else if (company == "G4") {
         img = G4Logo
-      } else if (company == "DL"){
+      } else if (company == "DL") {
         img = DLLogo
-      } else if (company == "VX"){
+      } else if (company == "VX") {
         img = VXLogo
-      } else if (company == "B6"){
+      } else if (company == "B6") {
         img = B6Logo
-      } else if (company == "OO"){
+      } else if (company == "OO") {
         img = OOLogo
-      } else if (company == "AC"){
+      } else if (company == "AC") {
         img = ACLogo
-      } else if (company == "WS"){
+      } else if (company == "WS") {
         img = WSLogo
-      } else if (company == "EV"){
+      } else if (company == "EV") {
         img = EVLogo
+      }else if (company == "NK") {
+        img = NKLogo
       }
       return img
     },
