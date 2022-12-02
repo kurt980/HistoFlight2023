@@ -35,7 +35,7 @@
                               <v-card-title class="text-h5">
                                 Incorrect information
                               </v-card-title>
-                              <v-card-text>The user uame or password you entered is incorrect. Please try it again.</v-card-text>
+                              <v-card-text>The user name or password you entered is incorrect. Please try it again.</v-card-text>
                               <v-divider></v-divider>
                               <v-card-actions>
                                 <v-spacer></v-spacer>
