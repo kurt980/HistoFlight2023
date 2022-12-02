@@ -1,37 +1,18 @@
 <template>
-    <div class="block">
-      <v-container>
-        <v-data-table
-    :headers="headers"
-    :items="user_comments"
-    :search="search"
-    class="elevation-1"
-  >
-    <template v-slot:top>
-      <v-toolbar
-        flat
-      >
-        <v-toolbar-title>Comments</v-toolbar-title>
-        <v-divider
-          class="mx-4"
-          inset
-          vertical
-        ></v-divider>
-        <v-spacer></v-spacer>
+  <div class="block">
+    <v-container>
+      <v-data-table :headers="headers" :items="user_comments" :search="search" class="elevation-1">
+        <template v-slot:top>
+          <v-toolbar flat>
+            <v-toolbar-title>Comments</v-toolbar-title>
+            <v-divider class="mx-4" inset vertical></v-divider>
+            <v-spacer></v-spacer>
 
-        <v-text-field
-        v-model="search"
-        append-icon="mdi-magnify"
-        label="Search"
-        single-line
-        hide-details
-      ></v-text-field>
+            <v-text-field v-model="search" append-icon="mdi-magnify" label="Search" single-line
+              hide-details></v-text-field>
 
-        <v-dialog
-          v-model="dialog"
-          max-width="500px"
-        >
-          <!-- <template v-slot:activator="{ on, attrs }">
+            <v-dialog v-model="dialog" max-width="500px">
+              <!-- <template v-slot:activator="{ on, attrs }">
             <v-btn
               color="primary"
               dark
@@ -42,109 +23,70 @@
               New Item
             </v-btn>
           </template> -->
-          <v-card>
-            <v-card-title>
-              <span class="text-h5">{{ formTitle }}</span>
-            </v-card-title>
+              <v-card>
+                <v-card-title>
+                  <span class="text-h5">{{ formTitle }}</span>
+                </v-card-title>
 
-            <v-card-text>
-              <v-container>
-                <v-row>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.name"
-                      label="User name"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.airline"
-                      label="Airline"
-                    ></v-text-field>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    sm="6"
-                    md="4"
-                  >
-                    <v-text-field
-                      v-model="editedItem.comment"
-                      label="Comments"
-                    ></v-text-field>
-                  </v-col>
-                  
-                </v-row>
-              </v-container>
-            </v-card-text>
+                <v-card-text>
+                  <v-container>
+                    <v-row>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field v-model="editedItem.name" label="User name"></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field v-model="editedItem.airline" label="Airline"></v-text-field>
+                      </v-col>
+                      <v-col cols="12" sm="6" md="4">
+                        <v-text-field v-model="editedItem.comment" label="Comments"></v-text-field>
+                      </v-col>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="close"
-              >
-                Cancel
-              </v-btn>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="save"
-              >
-                Save
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <v-dialog v-model="dialogDelete" max-width="500px">
-          <v-card>
-            <v-card-title class="text-h5">Are you sure you want to delete this comment?</v-card-title>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
-              <v-spacer></v-spacer>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-      </v-toolbar>
-    </template>
-    <template v-slot:[`item.actions`]="{ item }">
-      <v-icon
-        small
-        class="mr-2"
-        @click="editItem(item)"
-      >
-        mdi-pencil
-      </v-icon>
-      <v-icon
-        small
-        @click="deleteItem(item)"
-      >
-        mdi-delete
-      </v-icon>
-    </template>
-    <template v-slot:no-data>
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
-      </v-btn>
-    </template>
-  </v-data-table>
-      </v-container>
-    
+                    </v-row>
+                  </v-container>
+                </v-card-text>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="close">
+                    Cancel
+                  </v-btn>
+                  <v-btn color="blue darken-1" text @click="save">
+                    Save
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+            <v-dialog v-model="dialogDelete" max-width="500px">
+              <v-card>
+                <v-card-title class="text-h5">Are you sure you want to delete this comment?</v-card-title>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
+                  <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+                  <v-spacer></v-spacer>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-toolbar>
+        </template>
+        <template v-slot:[`item.actions`]="{ item }">
+          <v-icon small class="mr-2" @click="editItem(item)">
+            mdi-pencil
+          </v-icon>
+          <v-icon small @click="deleteItem(item)">
+            mdi-delete
+          </v-icon>
+        </template>
+        <template v-slot:no-data>
+          <v-btn color="primary" @click="initialize">
+            Reset
+          </v-btn>
+        </template>
+      </v-data-table>
+    </v-container>
+
   </div>
- 
+
 </template>
 
 
@@ -153,128 +95,142 @@
 
 import axios from "axios"
 
-  export default {
-    name: 'Comments_output',
-    data: () => ({
-      dialog: false,
-      dialogDelete: false,
-      search: '',
-      headers: [
-        {
-          text: 'User_name',
-          align: 'start',
-          sortable: false,
-          value: 'user_name',
-        },
-        { text: 'Airline', value: 'airline' , sortable: false},
-        { text: 'Comments', value: 'text' },
-        { text: 'Actions', value: 'actions', sortable: false },
-      ],
-      user_comments: [],
-      editedIndex: -1,
-      editedItem: {
-        name: '',
-        airline: '',
-        comment: '',
+export default {
+  name: 'Comments_output',
+  data: () => ({
+    dialog: false,
+    dialogDelete: false,
+    search: '',
+    headers: [
+      {
+        text: 'User_name',
+        align: 'start',
+        sortable: false,
+        value: 'user_name',
       },
-      defaultItem: {
-        name: '',
-        airline: '',
-        comment: '',
-      },
-    }),
+      { text: 'Airline', value: 'airline', sortable: false },
+      { text: 'Comments', value: 'text' },
+      { text: 'Actions', value: 'actions', sortable: false },
+    ],
+    user_comments: [],
+    editedIndex: -1,
+    editedItem: {
+      name: '',
+      airline: '',
+      comment: '',
+    },
+    defaultItem: {
+      name: '',
+      airline: '',
+      comment: '',
+    },
+  }),
 
-    computed: {
-      formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
-      },
+  computed: {
+    formTitle() {
+      return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+    },
+  },
+
+  watch: {
+    dialog(val) {
+      val || this.close()
+    },
+    dialogDelete(val) {
+      val || this.closeDelete()
+    },
+  },
+
+  created() {
+    this.initialize()
+  },
+
+  methods: {
+    getData: function () {
+      axios.get('http://127.0.0.1:5000/api/comments').then(resp => {
+        this.user_comments = resp.data;
+      });
+    },
+    initialize() {
+      this.getData()
     },
 
-    watch: {
-      dialog (val) {
-        val || this.close()
-      },
-      dialogDelete (val) {
-        val || this.closeDelete()
-      },
+    editItem(item) {
+      this.editedIndex = this.user_comments.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialog = true
     },
 
-    created () {
-      this.initialize()
+    deleteItem(item) {
+      this.editedIndex = this.user_comments.indexOf(item)
+      this.editedItem = Object.assign({}, item)
+      this.dialogDelete = true
     },
 
-    methods: {
-      getData: function(){
-          axios.get('http://127.0.0.1:5000/api/comments').then(resp => {
-          this.user_comments = resp.data; });
-      },
-      initialize () {
-        this.getData()
-      },
-
-      editItem (item) {
-        this.editedIndex = this.user_comments.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
-      },
-
-      deleteItem (item) {
-        this.editedIndex = this.user_comments.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialogDelete = true
-      },
-
-      deleteItemConfirm () {
-        let editedIndex = this.editedIndex
-        let item = this.user_comments[editedIndex]
-        axios.delete('http://127.0.0.1:5000/api/comment/'+ item.comment_id)
-        .then(response=>{
+    deleteItemConfirm() {
+      let editedIndex = this.editedIndex
+      let item = this.user_comments[editedIndex]
+      axios.delete('http://127.0.0.1:5000/api/comment/' + item.comment_id, {
+        headers: {
+          "x-access-tokens": sessionStorage.token
+        }
+      })
+        .then(response => {
           console.log(response);
           this.user_comments.splice(editedIndex, 1)
         })
-        this.closeDelete()
-      },
-
-      close () {
-        this.dialog = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-
-      closeDelete () {
-        this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
-      },
-
-      save () {
-        console.log(this.editedItem)
-        let editedIndex = this.editedIndex
-        let editedItem = this.editedItem
-        if (this.editedIndex > -1) {
-
-          let item = this.user_comments[this.editedIndex]
-          axios.put('http://127.0.0.1:5000/api/comment/'+ item.comment_id,{
-            text:this.editedItem.comment,
-            user_name:this.editedItem.name,
-            airline:this.editedItem.airline
-          }).then(
-            response=>{
-              console.log(response)
-              if (response.status === 200) {
-                Object.assign(this.user_comments[editedIndex], editedItem)
-              }
-            }
-          )
-        } else {
-          this.user_comments.push(this.editedItem)
-        }
-        this.close()
-      },
+      this.closeDelete()
     },
-  }
+
+    close() {
+      this.dialog = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+
+    closeDelete() {
+      this.dialogDelete = false
+      this.$nextTick(() => {
+        this.editedItem = Object.assign({}, this.defaultItem)
+        this.editedIndex = -1
+      })
+    },
+
+    save() {
+      console.log(this.editedItem)
+      let editedIndex = this.editedIndex
+      let editedItem = this.editedItem
+      if (this.editedIndex > -1) {
+
+        let item = this.user_comments[this.editedIndex]
+        axios.put('http://127.0.0.1:5000/api/comment/' + item.comment_id,
+          {
+            text: this.editedItem.comment,
+            user_name: this.editedItem.name,
+            airline: this.editedItem.airline
+          },{
+          headers: {
+            "x-access-tokens": sessionStorage.token
+          }
+        },
+
+        ).then(
+          response => {
+            // console.log("edit",editedItem)
+            // console.log("res",response)
+            if (response.status === 200) {
+              editedItem.text=editedItem.comment
+              Object.assign(this.user_comments[editedIndex], editedItem)
+            }
+          }
+        )
+      } else {
+        this.user_comments.push(this.editedItem)
+      }
+      this.close()
+    },
+  },
+}
 </script>
