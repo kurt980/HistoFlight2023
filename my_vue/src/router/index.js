@@ -4,7 +4,7 @@ import Home from '../views/Home'
 import About from '../views/About'
 import Comments from '../views/Comments'
 import NotFound from '../views/NotFound'
-import Results from '../views/Flightsearch_Results.vue'
+import Results from '../views/Results.vue'
 import MyHisto_login from '../views/MyHisto_login.vue'
 import MyHisto_afterlogin from '../views/MyHisto_afterlogin.vue'
 
