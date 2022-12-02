@@ -3,7 +3,7 @@
     <div class="staticHero">
       <v-img 
             src="../assets/image/aboutus.jpeg"
-            height="500">
+            height="400">
         <v-row align="end" class="lightbox white--text pa-2 fill-height">
           <v-col>
             <v-container>

@@ -18,6 +18,10 @@
         <v-btn text>
           <router-link to="/comments">Comments</router-link>
         </v-btn>
+
+        <v-btn text>
+          <router-link to="/login">My Histo</router-link>
+        </v-btn>
       </v-toolbar-items>
     </v-toolbar>
  

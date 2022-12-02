@@ -35,15 +35,18 @@
         items: [
           {
             src: require('../assets/image/carousel1.webp'),
-            title:"Easy to check the price"
+            title:"Easy to check the price",
+            height:"400"
           },
           {
             src: require('../assets/image/carousel2.webp'),
-            title:"Buy ticket at low price"
+            title:"Buy ticket at low price",
+            height:"400"
           },
           {
             src: require('../assets/image/carousel5.jpg'),
-            title:"Historical data is useful"
+            title:"Historical data is useful",
+            height:"400"
           }
         ],
       }
