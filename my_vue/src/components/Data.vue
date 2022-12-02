@@ -199,7 +199,7 @@ export default {
       const data = {
         labels: labels,
         datasets: [{
-          label: 'My First Dataset',
+          label: 'Price',
           data: d,
           fill: false,
           borderColor: 'rgb(75, 192, 192)',
