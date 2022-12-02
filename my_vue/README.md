@@ -29,6 +29,10 @@ npm i vee-validate --save
 ```
 npm install axios
 ```
+### Install chart.js
+```
+npm i chart.js@2.9.4
+```
 
 ### Compiles and hot-reloads for development
 ```
