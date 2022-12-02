@@ -67,7 +67,7 @@
       </v-simple-table> -->
     <v-data-table :headers="tableHeader" :items="flightData" :single-expand="singleExpand" :expanded.sync="expanded"
       item-key="flight_number" @item-expanded="onExpand" show-expand class="table">
-      
+
       <template v-slot:item.time="{ item }">{{ item.departure_time }} - {{ item.arrival_time }}</template>
       <template v-slot:item.avg_price="{ item }">${{ item.avg_price }}</template>
 
@@ -126,7 +126,7 @@ export default {
   data() {
     return {
       flightData: [],
-      content:"",
+      content: "",
       value: [],
       cityAbv:
       {
@@ -168,11 +168,25 @@ export default {
   },
   methods: {
     onExpand({ item }) {
-      setTimeout(() => this.mountGraph(), 200);
+      axios.get(url + '/api/ticket?flight_id=' + item.flight_id).then(resp => {
+        let d = resp.data
+        let temp = []
+        for (let i = 0; i < d.length; i++) {
+
+          temp.push({
+            "label": d[i]["purchase_date"],
+            "value": d[i]["price"]
+          })
+
+          temp.sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0))
+        }
+        item["chart_data"] = temp;
+        this.mountGraph(item)
+      });
     },
-    mountGraph() {
+    mountGraph(item) {
       console.log("mounted")
-      const t = [{ "label": "2022-11-01", "value": 206 }, { "label": "2022-11-02", "value": 232 }, { "label": "2022-11-03", "value": 218 }, { "label": "2022-11-04", "value": 228 }, { "label": "2022-11-05", "value": 220 }, { "label": "2022-11-06", "value": 235 }, { "label": "2022-11-07", "value": 256 }, { "label": "2022-11-08", "value": 231 }, { "label": "2022-11-09", "value": 277 }, { "label": "2022-11-11", "value": 171 }, { "label": "2022-11-13", "value": 168 }, { "label": "2022-11-14", "value": 168 }, { "label": "2022-11-15", "value": 169 }, { "label": "2022-11-16", "value": 198 }, { "label": "2022-11-17", "value": 252 }, { "label": "2022-11-18", "value": 293 }]
+      const t = item.chart_data
       const ctx = document.getElementById('myChart');
       console.log("ctx", ctx)
       var labels = []
@@ -224,51 +238,29 @@ export default {
         var flight_id = b[i]["flight_id"];
         axios.get(url + '/api/getFlightAvgPrice/' + flight_id).then(resp => {
           b[i]["avg_price"] = resp.data[0]["avg_price"].toFixed(2);
-          // b[i]["chart_data"] = this.createChartData(flight_id);
-          // console.log("b" + b[i]["chart_data"])
-
           var d = []
           var temp = []
-          var cdata;
-          axios.get(url + '/api/ticket?flight_id=' + flight_id).then(resp => {
-            d = resp.data
+          // axios.get(url + '/api/ticket?flight_id=' + flight_id).then(resp => {
+          //   d = resp.data
 
-            for (let i = 0; i < d.length; i++) {
+          //   for (let i = 0; i < d.length; i++) {
 
-              temp.push({
-                "label": d[i]["purchase_date"],
-                "value": d[i]["price"]
-              })
+          //     temp.push({
+          //       "label": d[i]["purchase_date"],
+          //       "value": d[i]["price"]
+          //     })
 
-              temp.sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0))
-              // console.log(temp);
-
-              // var labels = []
-              // var value = []
-              // for (let y = 0;y<temp.length;y++){
-              //   labels.push(temp[y]["label"])
-              //   value.push(temp[y]["value"])
-              // }
-
-              // cdata = {
-              //     labels: labels,
-              //     datasets: [{
-              //       label: 'Price',
-              //       data: value,
-              //       fill: false,
-              //       borderColor: 'rgb(75, 192, 192)',
-              //       tension: 0.1
-              //     }]
-              //   };
-            }
-            b[i]["chart_data"] = temp;
-            // console.log(b[i])
-            this.flightData.push(b[i])
-            // this.mountGraph();
-          });
+          //     temp.sort((a, b) => (a.label > b.label) ? 1 : ((b.label > a.label) ? -1 : 0))
+          //   }
+          //   b[i]["chart_data"] = temp;
+          //   // console.log(b[i])
+          //   this.flightData.push(b[i])
+          //   // this.mountGraph();
+          // });
 
 
 
+          this.flightData.push(b[i])
 
           // console.log(b[i])
 
