@@ -60,7 +60,7 @@ def add_comments(current_user):
 @comment_bp.route("/comment/<comment_id>", methods=['DELETE'])
 @token_required
 def delete_comments(current_user, comment_id):
-    comment = getComment(comment_id)
+    comment = getComment(comment_id)[0]
     if not comment:
         return "No comment with comment id " + comment_id + " found"
     if comment['user_name'] != current_user['user_name']:
@@ -74,7 +74,7 @@ def delete_comments(current_user, comment_id):
 @comment_bp.route("/comment/<comment_id>", methods=['PUT'])
 @token_required
 def update_comments(current_user, comment_id):
-    comment = getComment(comment_id)
+    comment = getComment(comment_id)[0]
     if not comment:
         return "No comment with comment id " + comment_id + " found"
     if comment['user_name'] != current_user['user_name']:
