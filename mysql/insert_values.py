@@ -18,8 +18,8 @@ conn.select_db("project")
 # df_flight = pd.read_csv("E:\\UIUC\\CS411 Database Systems\\fa22-cs411-A-team047-Pepsi\\data\\%s\\flight.csv"%today_date,header=None)
 # df_ticket = pd.read_csv("E:\\UIUC\\CS411 Database Systems\\fa22-cs411-A-team047-Pepsi\\data\\%s\\ticket.csv"%today_date,header=None)
 
-df_flight = pd.read_csv("E:\\UIUC\\CS411 Database Systems\\fa22-cs411-A-team047-Pepsi\\data\\2022.11.27\\flight.csv",header=None)
-df_ticket = pd.read_csv("E:\\UIUC\\CS411 Database Systems\\fa22-cs411-A-team047-Pepsi\\data\\2022.11.27\\ticket.csv",header=None)
+df_flight = pd.read_csv("E:\\UIUC\\CS411 Database Systems\\fa22-cs411-A-team047-Pepsi\\data\\2022.12.02\\flight.csv",header=None)
+df_ticket = pd.read_csv("E:\\UIUC\\CS411 Database Systems\\fa22-cs411-A-team047-Pepsi\\data\\2022.12.02\\ticket.csv",header=None)
 
 # fill nan in 'price' in ticket
 df_ticket[4] = df_ticket[4].fillna('NULL')
