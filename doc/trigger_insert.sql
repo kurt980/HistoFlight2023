@@ -44,7 +44,7 @@ CREATE TRIGGER censor_insert
 		SET @counter = @counter + 1;
 	END WHILE;
 	
-    SET NEW.text = CONCAT(@comment, ' (PLEASE BE POLITE!)');
+    SET NEW.text = @comment;
     
     DROP TEMPORARY TABLE temp1;
     
