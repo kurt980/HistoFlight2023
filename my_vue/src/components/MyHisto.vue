@@ -52,7 +52,6 @@
                     </v-list-item>
 
                     <v-divider inset></v-divider>
-                    <p>
                     <div class="text-center">
                       <v-btn class="ma-2 white--text" :loading="loading2" :disabled="loading2" color="grey"
                         @click="logout">
@@ -122,7 +121,7 @@ export default {
   }),
   methods: {
     get_user() {
-      axios.get('http://127.0.0.1:5000/auth/user', {
+      axios.get('/auth/user', {
         headers: {
           "x-access-tokens": sessionStorage.token
         }
@@ -136,7 +135,7 @@ export default {
         console.log("response ", response)
         this.username = response.data.user_name;
         this.email = response.data.email;
-        axios.get('http://127.0.0.1:5000/api/comment?user_name=' + response.data.user_name).then(resp => {
+        axios.get('/api/comment?user_name=' + response.data.user_name).then(resp => {
           console.log(resp)
           console.log(resp.data)
           resp.data.forEach(comment => {

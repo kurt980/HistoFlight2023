@@ -48,7 +48,6 @@ def login():
 
     user = db.search("User", {"user_name": auth.username})[0]
     if check_password_hash(user['password'], auth.password):
-        print(str(datetime.now() - timedelta(minutes=30)))
         token = generateToken(user)
 
         return jsonify({'token': token})
