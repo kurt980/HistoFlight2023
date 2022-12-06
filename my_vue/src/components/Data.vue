@@ -7,15 +7,17 @@
       <template v-slot:item.flight_number="{ item }">{{ item.flight_number }}</template>
 
       <template v-slot:item.avg_price="{ item }">
-        ${{ item.avg_price }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <v-icon v-if="item.is_cheap == 1" color="yellow">fas fa-star</v-icon>
+        ${{ item.avg_price }}
       </template>
+
+      <template v-slot:item.ifstar="{ item }"> <v-icon v-if="item.is_cheap == 1" color="yellow">fas
+          fa-star</v-icon></template>
+
       <template v-slot:item.logo="{ item }"><img :src="changeImgSource(item.flight_number)"
           style="width:50px;height:50px;"></template>
 
-      <template v-slot:item.travel_time="{ item }">
-        {{ item.travel_time }}
-        <p>{{ item.departure_airport }} - {{ item.arrival_airport }}</p>
+      <template v-slot:item.departure_arrival="{ item }">
+        {{ item.departure_airport }} - {{ item.arrival_airport }}
       </template>
 
       <!-- <template v-slot:item.one_way>Nonstop</template> -->
@@ -32,18 +34,20 @@
       <template v-slot:expanded-item="{ item }">
         <!-- {{content}} -->
         <td>
-          <br/>
+          <br />
           <v-icon>mdi-seat-legroom-normal</v-icon>Average Legroom
-          <br/>
+          <br />
           <v-icon>mdi-signal-variant</v-icon>Free wifi available
-          <br/>
+          <br />
           <v-icon>mdi-power-plug-outline</v-icon>In-seat power outlet
           <br>
           <v-icon>mdi-cellphone-nfc</v-icon>Stream media to your device
         </td>
         <td>
 
-          <canvas id="myChart" width="400" max_height="100"></canvas>
+            <canvas id="myChart" width="400" max_height="150"></canvas>
+
+
 
         </td>
 
@@ -77,13 +81,14 @@ export default {
       singleExpand: false,
       tableHeader: [
         { text: "", align: 'start', sortable: false, value: 'logo' },
-        { text: "", sortable: false, value: 'flight_number' },
-        { text: "", sortable: false, value: "time" },
+        { text: "Flight Number", sortable: false, value: 'flight_number' },
+        { text: "Time", sortable: false, value: "time" },
         // {text: "Departure Airport", value:'departure_airport'},
         // {text: "Arrival Airport", value:'arrival_airport'},
-        { text: "", sortable: false, value: 'travel_time' },
+        { text: "Departure/Arrival", sortable: false, value: 'departure_arrival' },
         // { text: "", sortable: false, value: 'one_way' },
-        { text: "", sortable: false, value: "avg_price" },
+        { text: "Price", sortable: false, value: "avg_price" },
+        { text: "Cheap", sortable: false, value: "ifstar" },
         { text: '', value: 'data-table-expand' }
       ],
     }
@@ -217,7 +222,7 @@ export default {
         img = WSLogo
       } else if (company == "EV") {
         img = EVLogo
-      }else if (company == "NK") {
+      } else if (company == "NK") {
         img = NKLogo
       }
       return img
