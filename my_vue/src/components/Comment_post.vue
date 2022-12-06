@@ -108,7 +108,7 @@ export default {
   },
   methods: {
     getData: function () {
-      axios.get('http://127.0.0.1:5000/api/airlines').then(resp => {
+      axios.get('/api/airlines').then(resp => {
         this.airlineMap = resp.data;
         this.items = this.airlineMap.map((airline) => {
           return airline.airline_name
@@ -117,7 +117,7 @@ export default {
     },
 
     get_user() {
-      axios.get('http://127.0.0.1:5000/auth/user', {
+      axios.get('/auth/user', {
         headers: {
           "x-access-tokens": sessionStorage.token
         }
@@ -150,7 +150,7 @@ export default {
           airline: IATA
         }
         // console.log(body)
-        axios.post('http://127.0.0.1:5000/api/comment', body, {
+        axios.post('/api/comment', body, {
           headers: {
             "x-access-tokens": sessionStorage.token
           }

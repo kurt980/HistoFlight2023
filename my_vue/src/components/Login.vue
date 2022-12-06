@@ -137,7 +137,7 @@ export default {
   methods: {
 
     signin() {
-      axios.post('http://127.0.0.1:5000/auth/login', {}, {
+      axios.post('/auth/login', {}, {
         auth: {
           username: this.user_name,
           password: this.password
@@ -164,7 +164,7 @@ export default {
         password: this.password
       }
       // console.log(body)
-      axios.post('http://127.0.0.1:5000/auth/signup', body)
+      axios.post('/auth/signup', body)
         .then(response => {
           console.log(response);
           sessionStorage.token = response.data.token

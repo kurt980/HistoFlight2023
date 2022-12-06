@@ -63,8 +63,6 @@ import Chart from 'chart.js';
 import axios from 'axios';
 
 
-var url = "http://127.0.0.1:5000";
-
 export default {
   props: ['items'],
   data() {
@@ -102,7 +100,7 @@ export default {
   },
   methods: {
     onExpand({ item }) {
-      axios.get(url + '/api/ticket?flight_id=' + item.flight_id).then(resp => {
+      axios.get('/api/ticket?flight_id=' + item.flight_id).then(resp => {
         let d = resp.data
         let temp = []
         for (let i = 0; i < d.length; i++) {
@@ -154,7 +152,7 @@ export default {
       var dAbv = this.cityAbv[this.$route.query.items.departureCity] || "LAX";
       var departDate = this.$route.query.items.departureDate;
 
-      axios.get(url + '/api/getFlightsCheaperThanAvg?arrival_airport=' + aAbv + '&departure_airport=' + dAbv + '&departure_date=' + departDate).then(resp => {
+      axios.get('/api/getFlightsCheaperThanAvg?arrival_airport=' + aAbv + '&departure_airport=' + dAbv + '&departure_date=' + departDate).then(resp => {
         this.getTicketPrice(resp.data);
         this.createChartData(resp.data);
       });
@@ -165,7 +163,7 @@ export default {
 
       for (let i = 0; i < b.length; i++) {
         var flight_id = b[i]["flight_id"];
-        axios.get(url + '/api/getFlightAvgPrice/' + flight_id).then(resp => {
+        axios.get('/api/getFlightAvgPrice/' + flight_id).then(resp => {
           b[i]["avg_price"] = resp.data[0]["avg_price"].toFixed(2);
 
           this.flightData.push(b[i])
@@ -230,7 +228,7 @@ export default {
     createChartData(flight_id) {
       var d = []
       var temp = []
-      axios.get(url + '/api/ticket?flight_id=' + flight_id).then(resp => {
+      axios.get('/api/ticket?flight_id=' + flight_id).then(resp => {
         d = resp.data
         var cdata;
         for (let i = 0; i < d.length; i++) {

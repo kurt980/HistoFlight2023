@@ -147,7 +147,7 @@ export default {
 
   methods: {
     getData: function () {
-      axios.get('http://127.0.0.1:5000/api/comments').then(resp => {
+      axios.get('/api/comments').then(resp => {
         this.user_comments = resp.data;
       });
     },
@@ -170,7 +170,7 @@ export default {
     deleteItemConfirm() {
       let editedIndex = this.editedIndex
       let item = this.user_comments[editedIndex]
-      axios.delete('http://127.0.0.1:5000/api/comment/' + item.comment_id, {
+      axios.delete('/api/comment/' + item.comment_id, {
         headers: {
           "x-access-tokens": sessionStorage.token
         }
@@ -205,7 +205,7 @@ export default {
       if (this.editedIndex > -1) {
 
         let item = this.user_comments[this.editedIndex]
-        axios.put('http://127.0.0.1:5000/api/comment/' + item.comment_id,
+        axios.put('/api/comment/' + item.comment_id,
           {
             text: this.editedItem.comment,
             user_name: this.editedItem.name,
