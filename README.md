@@ -26,10 +26,12 @@ docker run -p 8080:8080 histoflight
 ```
 Open http://localhost:8080/#/
 ## Contributors
-Yilun Fu
+We are team47 from CS411 Database System at UIUC
 
-Weikun Wu
+Yilun Fu (yilunf2@illinois.edu)
 
-Henry Wang
+Weikun Wu (weikunw2@illinois.edu)
 
-Chengyan Ji
+Henry Wang (henryw6@illinois.edu)
+
+Chengyan Ji (cji10@illinois.edu)
