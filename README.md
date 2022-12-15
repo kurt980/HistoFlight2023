@@ -18,6 +18,8 @@ Web application: https://histoflight.fly.dev/#/
 
 ## How To Use (if you want to run locally） 
 Download [Docker](https://www.docker.com/)
+
+Go to dockerfile directory
 ```
 docker build . -t histoflight
 docker run -p 8080:8080 histoflight
