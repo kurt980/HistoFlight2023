@@ -13,13 +13,13 @@ cursor = conn.cursor()
 # use database
 conn.select_db("project")
 
-# import data
-# today_date = date.today().strftime("%Y.%m.%d") 
-# df_flight = pd.read_csv("E:\\UIUC\\CS411 Database Systems\\fa22-cs411-A-team047-Pepsi\\data\\%s\\flight.csv"%today_date,header=None)
-# df_ticket = pd.read_csv("E:\\UIUC\\CS411 Database Systems\\fa22-cs411-A-team047-Pepsi\\data\\%s\\ticket.csv"%today_date,header=None)
+import data
+today_date = date.today().strftime("%Y.%m.%d") 
+df_flight = pd.read_csv("E:\\UIUC\\CS411 Database Systems\\fa22-cs411-A-team047-Pepsi\\data\\%s\\flight.csv"%today_date,header=None)
+df_ticket = pd.read_csv("E:\\UIUC\\CS411 Database Systems\\fa22-cs411-A-team047-Pepsi\\data\\%s\\ticket.csv"%today_date,header=None)
 
-df_flight = pd.read_csv("E:\\UIUC\\CS411 Database Systems\\fa22-cs411-A-team047-Pepsi\\data\\2022.12.06\\flight.csv",header=None)
-df_ticket = pd.read_csv("E:\\UIUC\\CS411 Database Systems\\fa22-cs411-A-team047-Pepsi\\data\\2022.12.06\\ticket.csv",header=None)
+# df_flight = pd.read_csv("E:\\UIUC\\CS411 Database Systems\\fa22-cs411-A-team047-Pepsi\\data\\2022.12.06\\flight.csv",header=None)
+# df_ticket = pd.read_csv("E:\\UIUC\\CS411 Database Systems\\fa22-cs411-A-team047-Pepsi\\data\\2022.12.06\\ticket.csv",header=None)
 
 # fill nan in 'price' in ticket
 df_ticket[4] = df_ticket[4].fillna('NULL')
