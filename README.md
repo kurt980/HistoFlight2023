@@ -16,6 +16,12 @@ Web application: https://histoflight.fly.dev/#/
 ###  Comments
 ![image](./doc/images/interface5.png)
 
+## How To Use
+Download [Docker](https://www.docker.com/)
+```
+docker build . -t histoflight
+docker run -p 8080:8080 histoflight
+```
 ## Contributors
 Yilun Fu
 
