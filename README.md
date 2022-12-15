@@ -16,13 +16,13 @@ Web application: https://histoflight.fly.dev/#/
 ###  Comments
 ![image](./doc/images/interface5.png)
 
-## How To Use(if you want to run locally） 
+## How To Use (if you want to run locally） 
 Download [Docker](https://www.docker.com/)
 ```
 docker build . -t histoflight
 docker run -p 8080:8080 histoflight
 ```
-open http://localhost:8080/#/
+Open http://localhost:8080/#/
 ## Contributors
 Yilun Fu
 
