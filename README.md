@@ -1,4 +1,6 @@
 # HistoFlight
+This is a web app that can be used to search for ticket information and view historical price movements, has a personal user system and can evaluate airline services
+
 Web application: https://histoflight.fly.dev/#/
 
 (Database service on GoogleCloud is not turned on (due to charges))
