@@ -6,6 +6,9 @@ Web application: https://histoflight.fly.dev/#/
 [YouTube link](https://youtu.be/BMpqUacX58w)
 ## Contributors
 Yilun Fu
+
 Weikun Wu
+
 Henry Wang
+
 Chengyan Ji
