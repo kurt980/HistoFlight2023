@@ -2,6 +2,10 @@
 Web application: https://histoflight.fly.dev/#/
 
 (Database service on GoogleCloud is not turned on (due to charges))
+
+## Intro to our Web App
+[YouTube link](https://youtu.be/BMpqUacX58w)
+
 ## Interface Demo
 ### Flight Search
 ![image](./doc/images/interface1.png)
@@ -11,8 +15,7 @@ Web application: https://histoflight.fly.dev/#/
 ![image](./doc/images/interface2.png)
 ###  Comments
 ![image](./doc/images/interface5.png)
-## Intro to our Web App
-[YouTube link](https://youtu.be/BMpqUacX58w)
+
 ## Contributors
 Yilun Fu
 
