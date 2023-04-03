@@ -23,7 +23,7 @@ To deactivate from virtual environment, simply run
 deactivate
 ```
 
-## Data Crawling
+<!-- ## Data Crawling
 Run the command
 ```sh
 python crawl.py
@@ -33,4 +33,12 @@ Run the command to generate airport, flight and ticket csv. Make sure they do no
 Also make sure flight_data.txt does not exist in current directory
 ```sh
 python processData.py
-```
+``` -->
+
+## Data Crawling and Processing
+Data crawling and processing now has been combined in the same 'crawler_processor' script to avoid additional readings
+Run the command to generate airport, flight and ticket csv. Make sure they do not currently exist in the data directory before running
+Also make sure flight_data.txt does not exist in current directory
+```sh
+python processData.py
+``` -->
