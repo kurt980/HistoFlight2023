@@ -12,9 +12,11 @@ from pathlib import Path
 import pandas as pd
 
 # for crawling
+# Selenium Update: https://stackoverflow.com/questions/76724939/there-is-no-such-driver-by-url-https-chromedriver-storage-googleapis-com-lates
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service as ChromeService
+# from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
@@ -57,7 +59,16 @@ def scrapeData(url):
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--window-size=%s" % WINDOW_SIZE)
 
-    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), chrome_options=chrome_options)
+    service = Service()
+    options = webdriver.ChromeOptions()
+
+    # driver = webdriver.Chrome(service=service, options=options)
+    # from webdriver_manager.chrome import ChromeDriverManager
+
+    # latestchromedriver = ChromeDriverManager().install()
+
+    driver = webdriver.Chrome(service=Service(executable_path='"C:\\Users\\KurtJi\\Downloads\\chromedriver-win32\\chromedriver.exe"'), options=options)
+    # driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), chrome_options=chrome_options)
     print('Crawling from ' + url)
     driver.get(url)
 

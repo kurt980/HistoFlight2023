@@ -1,0 +1,37 @@
+---
+title: "poly_regression"
+author: "Chengyan Ji"
+date: "2023-04-03"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+df = read.csv("C:/Users/KurtJi/OneDrive - University of Illinois - Urbana/Desktop/STAT443/Group4BikeDataAutumn_Revised.csv")
+```
+
+```{r}
+
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
