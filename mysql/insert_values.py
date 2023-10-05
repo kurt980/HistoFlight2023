@@ -26,7 +26,7 @@ df_ticket[4] = df_ticket[4].fillna('NULL')
 
 # insert values to Flight
 def save_to_flight(df_flight):
-    
+
     for i in range(1,len(df_flight)):
         try:
             sql = "insert into Flight(flight_id, flight_number, airline_code, departure_date, departure_time, arrival_date, arrival_time, travel_time, departure_airport, arrival_airport) \
